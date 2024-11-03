@@ -1,0 +1,77 @@
+@use "styles/variables" as v;
+
+* {
+  font-family: "Roboto";
+}
+
+.title {
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 48px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.button {
+  font-weight: 400;
+  font-size: v.$p-18;
+  line-height: 18px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.p-20 {
+  font-weight: 400;
+  font-size: v.$p-20;
+  line-height: 24px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.p-18 {
+  font-weight: 400;
+  font-size: v.$p-18;
+  line-height: 22px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.p-16 {
+  font-weight: 400;
+  font-size: v.$p-16;
+  line-height: 20px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.p-14 {
+  font-weight: 400;
+  font-size: v.$p-14;
+  line-height: 18px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+.medium {
+  font-weight: 500;
+}
+
+.bold {
+  font-weight: bold;
+}

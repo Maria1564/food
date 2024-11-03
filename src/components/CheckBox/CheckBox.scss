@@ -1,0 +1,39 @@
+@use "styles/variables" as v;
+
+.checkbox_wrapper {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background-color: v.$white;
+    cursor: pointer;
+    border-radius: v.$border-radius;
+    overflow: hidden;
+}
+
+.checkbox {
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkbox_wrapper:hover{
+    border: 1px solid v.$brand;
+    
+}
+
+.checkbox_icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+} 
+
+.checked_wrap_dis{
+    background-color: #FFFFFF80;
+}
+
+.checked_wrap_dis:hover{
+    border-color:#FFFFFF00;
+}

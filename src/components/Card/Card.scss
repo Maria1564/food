@@ -1,0 +1,40 @@
+@use "styles/variables" as v;
+
+.card{
+    width: 348px;
+    background: #D4D4D4;
+    border-radius: v.$border-radius;
+    overflow: hidden;
+}
+
+.card > img {
+    object-fit: cover;
+}
+
+.content  {
+    background: v.$white;
+    padding: v.$space-l v.$space-xs v.$space-xl v.$space-xs;
+    width: 348px;
+}
+.second_content {
+    background: #D9D9D9;
+    padding: 0;
+    height: 348px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+.card_title {
+    margin: v.$space-xxs 0;
+}
+
+.other_info {
+    margin-top: v.$space-l;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card:hover {
+    box-shadow: 0 4px 10px 0 #00000040;
+}
