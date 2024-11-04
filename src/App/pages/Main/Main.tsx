@@ -8,6 +8,28 @@ import ListRecipes from "./components/ListRecipes";
 import FilterTypes from "./components/FilterTypes";
 
 const Main: React.FC = () => {
+  // const [searchParams, setSearchParams] = useSearchParams()
+
+  // const [page, setPage] = useState("1")
+
+  // useEffect(()=>{
+  //   setPage(searchParams.get("page") || "1")
+  //   console.log(searchParams)
+  //   if(searchParams.get("page") === null){
+  //     setSearchParams((prev) => {
+  //       const params = new URLSearchParams(prev);
+  //       params.set("page", "1"); 
+  //       return params; 
+  //     });
+  //     // const queryParams = new URLSearchParams(location.search)
+  //   //     queryParams.set("page", '1');
+  //   //     console.log(queryParams)
+  //   // navigate(`?${queryParams.toString()}`);
+  //   }
+    
+  // }, [page, searchParams, setSearchParams])
+
+
   return (
     <>
       <div className={s.wrapper}>
@@ -23,6 +45,7 @@ const Main: React.FC = () => {
         <Search/>
         <FilterTypes/>
         <ListRecipes/>
+        
       </div>
     </>
   );

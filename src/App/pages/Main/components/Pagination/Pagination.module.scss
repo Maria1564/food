@@ -1,0 +1,29 @@
+@use "styles/variables" as v;
+@use "styles/mixins" as m;
+
+.wrapper_pagination{
+    @include m.align-items-center()
+}
+
+.page {
+    width: 38px;
+    height: 42px;
+    @include m.align-items-center();
+    flex-direction: column;
+    justify-content: center;
+}
+
+.num_page{
+    cursor: pointer;
+}
+
+.active_page{
+    background-color: v.$brand;
+    color: v.$white;
+    
+}
+
+.arrow_left,
+.arrow_right {
+    cursor: pointer;
+}

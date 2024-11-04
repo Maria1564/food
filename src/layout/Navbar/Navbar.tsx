@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
           </Text>
         </Link>
         <nav className={s.nav}>
-          <NavLink to="/" className={isActive}>
+          <NavLink to="/recipes" className={isActive}>
             Recipes
           </NavLink>
           <NavLink to="/ingredients" className={isActive}>

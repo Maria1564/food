@@ -1,6 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import {useParams } from "react-router-dom"
 
-function RecipeDetail() {
+const RecipeDetail: React.FC = () => {
+    
+    const {id} = useParams()
+    console.log(id)
+
+    useEffect(()=>{
+        
+    }, [])
+
   return (
     <div className='container'>RecipeDetail</div>
   )

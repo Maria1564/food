@@ -33,7 +33,12 @@
     text-align: start;
 }
 
+.subtitle {
+    height: 40px;
+}
+
 .card_title {
+    min-height: 48px;
     margin: v.$space-xxs 0;
 }
 
