@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Input from 'components/Input';
 import ArrowDownIcon from 'components/icons/ArrowDownIcon';
 import "./MultiDropdown.scss"
+import classNames from 'classnames';
 
 export type Option = {
   /** Ключ варианта, используется для отправки на бек/использования в коде */
@@ -25,7 +26,7 @@ export type MultiDropdownProps = {
   getTitle: (value: Option[]) => string;
 };
 
-const MultiDropdown: React.FC<MultiDropdownProps> = ({className, value, options,  onChange, getTitle, disabled}) => {
+const MultiDropdown: React.FC<MultiDropdownProps> = ({className:cn, value, options,  onChange, getTitle, disabled}) => {
   const [openModal, setOpenModal] = useState(false);
   const [inpValue, setInpValue] = useState<string>('');
   const [currentArr, setCurrentArr] = useState<string[]>([])
@@ -92,9 +93,9 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({className, value, options,
     setFilteredArr(res)
   }
   return (
-    <div ref={dropdownRef} >
+    <div ref={dropdownRef} className={classNames("wrapper", cn)} >
       <Input 
-      className={className}
+     
         value={currentValue} 
         onChange={(val) => handlerChange(val)} 
         afterSlot={<ArrowDownIcon />}  

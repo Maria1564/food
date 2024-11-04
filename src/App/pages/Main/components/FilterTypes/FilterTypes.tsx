@@ -1,10 +1,14 @@
+import MultiDropdown from 'components/MultiDropdown'
 import React from 'react'
+import s from "./FilterType.module.scss"
 
 
 
-function FilterTypes() {
+const FilterTypes: React.FC = () => {
   return (
-    <div>FilterTypes</div>
+    <>
+      <MultiDropdown className={s.filter} onChange={()=>{}}  getTitle={()=>"categories"} options={[{key: "dessert", value:"dessert"}, {key: "soup", value:"soup"}, {key: "breakfast", value:"breakfast"},{key: "appetizer", value:"appetizer"}, ]} value={[{key: "soup", value:"soup"}]}/>
+    </>
   )
 }
 
