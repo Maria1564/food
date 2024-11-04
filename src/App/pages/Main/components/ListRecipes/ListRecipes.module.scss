@@ -1,0 +1,11 @@
+@use "styles/variables" as v;
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 64px  80px;
+    margin-top: 48px;
+}
+.card_recipe span{
+    color: v.$brand !important;
+}

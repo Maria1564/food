@@ -11,6 +11,7 @@
     gap: v.$space-xxs;
     cursor: pointer;
     font-style: normal;
+    height: max-content;
 }
 
 .loader > path {

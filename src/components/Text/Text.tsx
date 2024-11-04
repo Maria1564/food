@@ -36,7 +36,7 @@ const Text: React.FC<TextProps> = ({
     })
 
   let selectTag = <p className={cn} style={{ WebkitLineClamp: maxLines ? maxLines : 100}}>{children}</p>;
-  let selectColor = "inherit"
+  let selectColor
   switch (color){
     case "secondary":
         selectColor = "#AFADB5"
