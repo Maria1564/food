@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {useNavigate, useParams } from "react-router-dom"
-import {data} from "./mockData.ts"
+// import {data} from "./mockData.ts"
 import Text from 'components/Text/Text.tsx'
 import s from "./RecipeDetail.module.scss"
 import dish_tray from "./assets/dish_tray.svg"
 import ladle from "./assets/ladle.svg"
 import arrow_right from ".//assets/arrow_right.svg"
+import { apiClient } from '../../../axiosConfig.ts'
 
 interface IAboutRecipes {
     title: string,
@@ -22,30 +23,34 @@ const RecipeDetail: React.FC = () => {
     const {id} = useParams()
     const divRef = useRef<HTMLDivElement | null>(null)
     const navigate = useNavigate()
-    console.log(id, data)
+    // console.log(id, data)
 
     useEffect(()=>{
         //запрос  на сервер
-        const arrIngredients = data.results.extendedIngredients.map(elem=> elem.original)
-        const arrEquipments = data.results.analyzedInstructions[0].steps.map(elem =>elem.equipment.length &&  elem.equipment.map(item=> item.localizedName)[0])
-        const sortedArrEquipments = arrEquipments.filter(num => num !== 0)
-        const arrSteps = data.results.analyzedInstructions[0].steps.map(elem => elem.step)
-        setInfoRecipes({
-            title: data.results.title,
-            image: data.results.image,
-            totalMinutes: data.results.readyInMinutes,
-            ratings: data.results.aggregateLikes,
-            servings: data.results.servings,
-            ingredients: arrIngredients,
-            equipment: sortedArrEquipments,
-            steps: arrSteps
+        apiClient.get(`/recipes/${id}/information`)
+        .then(({data})=>{
+            console.log(data)
+            const arrIngredients = data.extendedIngredients.map(elem=> elem.original)
+            const arrEquipments = data.analyzedInstructions[0].steps.map(elem =>elem.equipment.length &&  elem.equipment.map(item=> item.localizedName)[0])
+            const sortedArrEquipments = arrEquipments.filter(num => num !== 0)
+            const arrSteps = data.analyzedInstructions[0].steps.map(elem => elem.step)
+            setInfoRecipes({
+                title: data.title,
+                image: data.image,
+                totalMinutes: data.readyInMinutes,
+                ratings: data.aggregateLikes,
+                servings: data.servings,
+                ingredients: arrIngredients,
+                equipment: sortedArrEquipments,
+                steps: arrSteps
+            })
+            if(divRef.current){
+    
+                console.log(divRef.current.innerHTML = `
+                   ${data.summary}`)
+            }
         })
-        if(divRef.current){
-
-            console.log(divRef.current.innerHTML = `
-               ${data.results.summary}`)
-        }
-    }, [])
+    }, [id])
 
 
   return (

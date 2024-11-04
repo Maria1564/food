@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import s from "./ListRecipes.module.scss";
 import Card from "components/Card";
 import Button from "components/Button";
+import Text from "components/Text"
 import { useNavigate } from "react-router-dom";
 import Pagination from "../Pagination";
 import { useSearchParams } from "react-router-dom";
 import { apiClient } from "../../../../../axiosConfig";
+import time from "../../assets/time.svg"
 
 const ListRecipes: React.FC = () => {
   const navigate = useNavigate();
@@ -20,6 +22,8 @@ const ListRecipes: React.FC = () => {
       title: string;
     }[]
   >([]);
+
+  const [totalRecipes, setTotalRecipes] = useState(10)
 
   const [queryParams, setQueryParams] = useState<{
     offset: number;
@@ -50,6 +54,8 @@ const ListRecipes: React.FC = () => {
         `/recipes/complexSearch?addRecipeInformation=true&fillIngredients=true&number=9&offset=${queryParams.offset}`
       )
       .then(({ data }) => {
+        console.log(data,  data.totalResults)
+        setTotalRecipes(() =>  data.totalResults)
         const arr = data.results.map(
           (elem: {
             id: number;
@@ -70,10 +76,7 @@ const ListRecipes: React.FC = () => {
         setRecipes(arr);
       })
       .catch((err) => console.log(err.message));
-    console.log(queryParams);
-    console.log(
-      `/recipes/complexSearch?addRecipeInformation=true&fillIngredients=true&number=9&offset=${queryParams.offset}`
-    );
+    
   }, [queryParams]);
 
   // setRecipes([
@@ -197,7 +200,7 @@ const ListRecipes: React.FC = () => {
             onClick={() => navigate(`${item.id}`)}
             key={item.id}
             image={item.image}
-            captionSlot={item.timeReady}
+            captionSlot={<div className={s.caption}> <img src={time} alt="" /> <Text>{item.timeReady}</Text></div>}
             title={item.title}
             subtitle={item.ingredients}
             contentSlot={`${item.calories} kcal`}
@@ -207,7 +210,7 @@ const ListRecipes: React.FC = () => {
           />
         ))}
       </div>
-      <Pagination setQueryParams={setQueryParams} />
+      <Pagination setQueryParams={setQueryParams} totalRecipes={totalRecipes}/>
     </>
   );
 };

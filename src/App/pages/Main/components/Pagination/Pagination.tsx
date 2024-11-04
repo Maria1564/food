@@ -5,9 +5,10 @@ import classNames from "classnames";
 
 type PaginationProps = {
   setQueryParams: (prev: { offset: number; page: number }) => void;
+  totalRecipes: number
 };
 
-const Pagination: React.FC<PaginationProps> = ({ setQueryParams }) => {
+const Pagination: React.FC<PaginationProps> = ({ setQueryParams, totalRecipes }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [pages, setPages] = useState<(string | number)[]>([]);
   const [page, setPage] = useState("1");
@@ -28,7 +29,8 @@ const Pagination: React.FC<PaginationProps> = ({ setQueryParams }) => {
   }, [searchParams]);
 
   const createPagination = (currentPage: string) => {
-    const countPage = Math.ceil(460 / 9);
+    console.log(totalRecipes)
+    const countPage = Math.ceil(totalRecipes / 9);
     if (Number(currentPage) === 1 || Number(currentPage) === 2) {
       setPages(() => [1, 2, 3, "...", countPage]);
     } else if (
@@ -61,7 +63,7 @@ const Pagination: React.FC<PaginationProps> = ({ setQueryParams }) => {
   };
   useEffect(() => {
     createPagination(page);
-  }, [page]);
+  }, [page, totalRecipes]);
 
   const handlerClick = (currentPage: string) => {
     if (isNaN(Number(currentPage)) || currentPage == page) {
