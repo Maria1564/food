@@ -2,7 +2,9 @@
 @use "styles/mixins" as m;
 
 .wrapper_pagination{
-    @include m.align-items-center()
+    @include m.align-items-center();
+    justify-content: center;
+    margin-top: 48px;
 }
 
 .page {
@@ -26,4 +28,12 @@
 .arrow_left,
 .arrow_right {
     cursor: pointer;
+}
+
+.arrow_left {
+    margin-right: 15px;
+}
+
+.arrow_right {
+    margin-left: 15px;
 }

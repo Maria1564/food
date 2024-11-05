@@ -1,9 +1,8 @@
 @use "styles/variables" as v;
 @use "styles/mixins" as m;
 
-.caption {
-    @include m.align-items-center();
-    gap: 4px;
+.caption_img {
+    margin-right: 8px;
 }
 .list {
     display: flex;

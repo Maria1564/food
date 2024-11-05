@@ -200,7 +200,7 @@ const ListRecipes: React.FC = () => {
             onClick={() => navigate(`${item.id}`)}
             key={item.id}
             image={item.image}
-            captionSlot={<div className={s.caption}> <img src={time} alt="" /> <Text>{item.timeReady}</Text></div>}
+            captionSlot={<> <img src={time} alt="" className={s.caption_img}/> {item.timeReady}</>}
             title={item.title}
             subtitle={item.ingredients}
             contentSlot={`${item.calories} kcal`}
