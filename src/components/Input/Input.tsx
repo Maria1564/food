@@ -14,12 +14,12 @@ export type InputProps = Omit<
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  (props, ref) => {
+  ({afterSlot, ...otherProp}, ref) => {
 
     return (
       <>
-        <input {...props} ref={ref} className={`inp ${props.className}`} value={props.value} onChange={(e)=>props.onChange(e.target.value)} type='text'/>
-        {props.afterSlot && <span className='inp_icon'>{props.afterSlot}</span>}
+        <input {...otherProp} ref={ref} className={`inp ${otherProp.className}`} value={otherProp.value} onChange={(e)=>otherProp.onChange(e.target.value)} type='text'/>
+        {afterSlot && <span className='inp_icon'>{afterSlot}</span>}
       </>
       
     )

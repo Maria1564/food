@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import s from "./ListRecipes.module.scss";
 import Card from "components/Card";
 import Button from "components/Button";
-import Text from "components/Text"
 import { useNavigate } from "react-router-dom";
 import Pagination from "../Pagination";
 import { useSearchParams } from "react-router-dom";
@@ -200,7 +199,7 @@ const ListRecipes: React.FC = () => {
             onClick={() => navigate(`${item.id}`)}
             key={item.id}
             image={item.image}
-            captionSlot={<> <img src={time} alt="" className={s.caption_img}/> {item.timeReady}</>}
+            captionSlot={<div className={s.caption}> <img src={time} alt="" className={s.caption_img}/> {item.timeReady}</div>}
             title={item.title}
             subtitle={item.ingredients}
             contentSlot={`${item.calories} kcal`}

@@ -28,7 +28,7 @@ const Card: React.FC<CardProps> = ({className, image, captionSlot, title, subtit
             <img src={image} alt=""  width={360}/>
         </div>
         <div className="content">
-            {captionSlot && <Text className='capt_slot' view='p-14' weight='medium' color='secondary'>{captionSlot}</Text>}
+            {captionSlot && <Text tag='div' className='capt_slot' view='p-14' weight='medium' color='secondary'>{captionSlot}</Text>}
             <div className="" onClick={onClick}>
             <Text view='p-20' weight='medium' maxLines={2} color='primary' className='card_title'>{title}</Text>
              <Text className='subtitle' view='p-16' color='secondary' maxLines={3}>{subtitle}</Text>
