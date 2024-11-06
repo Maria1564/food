@@ -22,9 +22,8 @@
         cursor: pointer;
     }
 }
-.title {
-    font-size: 48px
-}
+
+
 .about {
     @include m.align-items-center();
     gap: 166px;
@@ -42,7 +41,7 @@
         text-align: center;
 
         &_text{
-            color: v.$brand !important;
+            color: v.$brand;
         }
     }
 }

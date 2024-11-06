@@ -1,63 +1,47 @@
 @use "styles/variables" as v;
 
-.title {
-  font-weight: 700;
-  font-size: 44px;
-  line-height: 48px;
+.text {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 48px;
+  
 }
 
 .button {
   font-weight: 400;
   font-size: v.$p-18;
   line-height: 18px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .p-20 {
   font-weight: 400;
   font-size: v.$p-20;
   line-height: 24px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .p-18 {
   font-weight: 400;
   font-size: v.$p-18;
   line-height: 22px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .p-16 {
   font-weight: 400;
   font-size: v.$p-16;
   line-height: 20px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .p-14 {
   font-weight: 400;
   font-size: v.$p-14;
   line-height: 18px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .normal {
@@ -70,4 +54,17 @@
 
 .bold {
   font-weight: bold;
+}
+
+
+.text_color_primary {
+  color: v.$primary-color
+}
+
+.text_color_secondary {
+  color: v.$secondary-color;
+}
+
+.text_color_accent {
+  color: v.$brand;
 }

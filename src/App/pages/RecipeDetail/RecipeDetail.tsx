@@ -29,7 +29,6 @@ const RecipeDetail: React.FC = () => {
         //запрос  на сервер
         apiClient.get(`/recipes/${id}/information`)
         .then(({data})=>{
-            console.log(data)
             const arrIngredients = data.extendedIngredients.map(elem=> elem.original)
             const arrEquipments = data.analyzedInstructions[0].steps.map(elem =>elem.equipment.length &&  elem.equipment.map(item=> item.localizedName)[0])
             const sortedArrEquipments = arrEquipments.filter(num => num !== 0)
@@ -46,8 +45,8 @@ const RecipeDetail: React.FC = () => {
             })
             if(divRef.current){
     
-                console.log(divRef.current.innerHTML = `
-                   ${data.summary}`)
+                divRef.current.innerHTML = `
+                   ${data.summary}`
             }
         })
     }, [id])
@@ -58,7 +57,7 @@ const RecipeDetail: React.FC = () => {
     <div className="container">
         <div className={s.back} onClick={()=> navigate(-1)}>
             <img src={arrow_right} alt="arrow" />
-            <Text tag='h1' className={s.title}>{infoRecipes?.title}</Text>
+            <Text tag='h1' view='title' className={s.title}>{infoRecipes?.title}</Text>
         </div>
         <div className={s.about}>
             <img src={infoRecipes?.image} alt="img" />
