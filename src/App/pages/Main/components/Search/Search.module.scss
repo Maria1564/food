@@ -1,0 +1,18 @@
+@use "styles/variables" as v;
+@use "styles/mixins" as m;
+
+.wrapper {
+    @include m.align-items-center;
+    gap: 19px;
+    margin-bottom: v.$space-l;
+    margin-top: 48px;
+    
+    .search {
+        padding: 18px v.$space-xs;
+        flex-grow: 1;
+    }
+
+    .btn_search {
+        padding: v.$space-s v.$space-l;
+    }
+}

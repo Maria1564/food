@@ -1,0 +1,35 @@
+@use "styles/variables" as v;
+@use "styles/mixins" as m;
+
+.navbar {
+  background-color: v.$white;
+  padding: v.$space-s 0;
+  
+  &_container {
+    @include m.align-items-center;
+    gap: 80px;
+  }
+
+  .box_logo  {
+    @include m.align-items-center;
+    gap: 20px;
+  }
+
+  nav {
+    font-weight: 400;
+    line-height: 20px;
+    @include m.align-items-center;
+    gap: 16px;
+
+    .link_active {
+      font-weight: 600;
+      color: v.$brand;
+    }
+  }
+
+  .profile_actions  {
+    margin-left: auto;
+    @include m.align-items-center;
+    gap: 17px;
+  }
+}
