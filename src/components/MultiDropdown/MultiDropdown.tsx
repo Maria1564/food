@@ -46,10 +46,8 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({className:cn, value, optio
     }
     
     const handleClickOutside = (event: MouseEvent) => {
-      console.log(placeholder)
-      console.log("inpValue >> ", inpValue)
+      
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        // console.log("handleClickOutside")
         setOpenModal(false);
         setInpValue(placeholder);
         setCurrentValue(placeholder)
@@ -77,11 +75,9 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({className:cn, value, optio
       ? value.filter(v => v.key !== option.key)
       : [...value, option]; 
 
-      // console.log("new >> ", newValue, value)
       onChange(newValue);
       const arr = newValue.map(item => item.value)
       setCurrentArr(() => [...arr])
-      // console.log(currentArr)
     setInpValue(getTitle(newValue)); 
     
   };
@@ -89,7 +85,6 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({className:cn, value, optio
   const handlerChange = (val: string) => {
     setCurrentValue(val)
     const res = options.filter(item => item.value.includes(val))
-    console.log("res >> ", res)
     setFilteredArr(res)
   }
   return (

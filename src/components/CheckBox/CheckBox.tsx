@@ -1,4 +1,6 @@
-import React from 'react';
+import classNames from 'classnames';
+import Icon from 'components/icons/Icon';
+import React, { useCallback } from 'react';
 import "./CheckBox.scss"
 
 export type CheckBoxProps = Omit<
@@ -9,32 +11,25 @@ export type CheckBoxProps = Omit<
   onChange: (checked: boolean) => void;
 };
 
-const CheckBox: React.FC<CheckBoxProps> = ({ onChange, ...other }) => {
-
+const CheckBox: React.FC<CheckBoxProps> = ({ onChange, disabled, ...other }) => {
+  const handlerChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.checked), [onChange])
   return (
-    <div className={`checkbox_wrapper ${other.className} ${other.disabled && "checked_wrap_dis"}`}>
+    <div className={classNames("checkbox_wrapper", other.className, {"checked_wrap_dis": disabled })}>
       {other.checked && (
-        <svg
-          className='checkbox_icon'
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <Icon width={40} height={40} className='checkbox_icon' color='accent'>
           <path
             d="M6.66663 19.3548L16.4625 30L33.3333 11.6667"
-            stroke={other.disabled? "#00000033" : "#B5460F"}
+            stroke='currentColor'
             stroke-width="3.33333"
           />
-        </svg>
+        </Icon>
       )}
       <input
         {...other}
         className="checkbox"
         type="checkbox"
         checked={other.checked as boolean}
-        onChange={(e) => onChange(e.target.checked)}
+        onChange={handlerChange}
       />
     </div>
   );

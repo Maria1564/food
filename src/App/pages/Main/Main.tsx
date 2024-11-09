@@ -16,7 +16,7 @@ const Main: React.FC = () => {
         <img src={imgBg} alt="background" className={s["main__wrapper-bg"]} />
       </div>
       <div className={classNames("container", s.main__container)}>
-        <Text tag="h2" view="p-20">
+        <Text tag="p" view="p-20">
           Find the perfect food and 
           <Text tag="span" view="p-20" className={s.main__container_underline}> drink ideas</Text> for every occasion,
           from <Text tag="span" view="p-20" className={s.main__container_underline}>weeknight dinners</Text> to
@@ -25,7 +25,6 @@ const Main: React.FC = () => {
         <Search/>
         <FilterTypes/>
         <ListRecipes/>
-        
       </div>
     </div>
   );

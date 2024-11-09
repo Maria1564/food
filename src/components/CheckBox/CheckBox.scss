@@ -28,6 +28,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
+    &:disabled {
+        color: #00000033;
+    }
+
 } 
 
 .checked_wrap_dis{
