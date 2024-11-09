@@ -1,8 +1,9 @@
 
-import { Navigate, Route, Routes } from 'react-router-dom'
-import Main from './pages/Main'
-import React from 'react'
 import Content from 'layout/Content'
+import React from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
+
+import Main from './pages/Main'
 import RecipeDetail from './pages/RecipeDetail'
 
 const App: React.FC = () => {

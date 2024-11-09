@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import s from "./ListRecipes.module.scss";
-import Card from "components/Card";
 import Button from "components/Button";
+import Card from "components/Card";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Pagination from "../Pagination";
 import { useSearchParams } from "react-router-dom";
+
+import s from "./ListRecipes.module.scss";
 import { apiClient } from "../../../../../axiosConfig";
 import time from "../../assets/time.svg"
+import Pagination from "../Pagination";
 
 const ListRecipes: React.FC = () => {
   const navigate = useNavigate();
@@ -78,128 +79,17 @@ const ListRecipes: React.FC = () => {
     
   }, [queryParams]);
 
-  // setRecipes([
-  // //   {
-  // //     calories: "477",
-  // //     id: 715415,
-  // //     image: "https://img.spoonacular.com/recipes/715415-312x231.jpg",
-  // //     ingredients:
-  // //       "additional toppings: avocado + carrots + celery stalks + chicken breast + flat leaf parsley + garlic + olive oil + canned tomatoes + lentils + salt and pepper + turnip + vegetable stock + onion",
-  // //     timeReady: "55 minutes",
-  // //     title: "Red Lentil Soup with Chicken and Turnips",
-  // //   },
-  //   {
-  //     calories: "477",
-  //     id: 715416,
-  //     image: "https://img.spoonacular.com/recipes/715415-312x231.jpg",
-  //     ingredients:
-  //       "additional toppings: avocado + carrots + celery stalks + chicken breast + flat leaf parsley + garlic + olive oil + canned tomatoes + lentils + salt and pepper + turnip + vegetable stock + onion",
-  //     timeReady: "55 minutes",
-  //     title: "Red Lentil Soup with Chicken and Turnips",
-  //   },
-  //   {
-  //     calories: "477",
-  //     id: 715417,
-  //     image: "https://img.spoonacular.com/recipes/715415-312x231.jpg",
-  //     ingredients:
-  //       "additional toppings: avocado + carrots + celery stalks + chicken breast + flat leaf parsley + garlic + olive oil + canned tomatoes + lentils + salt and pepper + turnip + vegetable stock + onion",
-  //     timeReady: "55 minutes",
-  //     title: "Red Lentil Soup with Chicken and Turnips",
-  //   },
-  //   {
-  //     calories: "477",
-  //     id: 715418,
-  //     image: "https://img.spoonacular.com/recipes/715415-312x231.jpg",
-  //     ingredients:
-  //       "additional toppings: avocado + carrots + celery stalks + chicken breast + flat leaf parsley + garlic + olive oil + canned tomatoes + lentils + salt and pepper + turnip + vegetable stock + onion",
-  //     timeReady: "55 minutes",
-  //     title: "Red Lentil Soup with Chicken and Turnips",
-  //   },
-  //   {
-  //     calories: "477",
-  //     id: 715419,
-  //     image: "https://img.spoonacular.com/recipes/715415-312x231.jpg",
-  //     ingredients:
-  //       "additional toppings: avocado + carrots + celery stalks + chicken breast + flat leaf parsley + garlic + olive oil + canned tomatoes + lentils + salt and pepper + turnip + vegetable stock + onion",
-  //     timeReady: "55 minutes",
-  //     title: "Red Lentil Soup with Chicken and Turnips",
-  //   },
-
-  //   {
-  //     calories: "477",
-  //     id: 715420,
-  //     image: "https://img.spoonacular.com/recipes/715415-312x231.jpg",
-  //     ingredients:
-  //       "additional toppings: avocado + carrots + celery stalks + chicken breast + flat leaf parsley + garlic + olive oil + canned tomatoes + lentils + salt and pepper + turnip + vegetable stock + onion",
-  //     timeReady: "55 minutes",
-  //     title: "Red Lentil Soup with Chicken and Turnips",
-  //   },
-  //   {
-  //     calories: "477",
-  //     id: 715421,
-  //     image: "https://img.spoonacular.com/recipes/715415-312x231.jpg",
-  //     ingredients:
-  //       "additional toppings: avocado + carrots + celery stalks + chicken breast + flat leaf parsley + garlic + olive oil + canned tomatoes + lentils + salt and pepper + turnip + vegetable stock + onion",
-  //     timeReady: "55 minutes",
-  //     title: "Red Lentil Soup with Chicken and Turnips",
-  //   },
-  //   {
-  //     calories: "477",
-  //     id: 715422,
-  //     image: "https://img.spoonacular.com/recipes/715415-312x231.jpg",
-  //     ingredients:
-  //       "additional toppings: avocado + carrots + celery stalks + chicken breast + flat leaf parsley + garlic + olive oil + canned tomatoes + lentils + salt and pepper + turnip + vegetable stock + onion",
-  //     timeReady: "55 minutes",
-  //     title: "Red Lentil Soup with Chicken and Turnips",
-  //   },
-  //   {
-  //     calories: "477",
-  //     id: 715423,
-  //     image: "https://img.spoonacular.com/recipes/715415-312x231.jpg",
-  //     ingredients:
-  //       "additional toppings: avocado + carrots + celery stalks + chicken breast + flat leaf parsley + garlic + olive oil + canned tomatoes + lentils + salt and pepper + turnip + vegetable stock + onion",
-  //     timeReady: "55 minutes",
-  //     title: "Red Lentil Soup with Chicken and Turnips",
-  //   },
-  //   {
-  //     calories: "477",
-  //     id: 715424,
-  //     image: "https://img.spoonacular.com/recipes/715415-312x231.jpg",
-  //     ingredients:
-  //       "additional toppings: avocado + carrots + celery stalks + chicken breast + flat leaf parsley + garlic + olive oil + canned tomatoes + lentils + salt and pepper + turnip + vegetable stock + onion",
-  //     timeReady: "55 minutes",
-  //     title: "Red Lentil Soup with Chicken and Turnips",
-  //   },
-  //   //   {
-  //   //     calories: "477",
-  //   //     id: 715425,
-  //   //     image: "https://img.spoonacular.com/recipes/715415-312x231.jpg",
-  //   //     ingredients:
-  //   //       "additional toppings: avocado + carrots + celery stalks + chicken breast + flat leaf parsley + garlic + olive oil + canned tomatoes + lentils + salt and pepper + turnip + vegetable stock + onion",
-  //   //     timeReady: "55 minutes",
-  //   //     title: "Red Lentil Soup with Chicken and Turnips",
-  //   //   },
-  //   //   {
-  //   //     calories: "477",
-  //   //     id: 715426,
-  //   //     image: "https://img.spoonacular.com/recipes/715415-312x231.jpg",
-  //   //     ingredients:
-  //   //       "additional toppings: avocado + carrots + celery stalks + chicken breast + flat leaf parsley + garlic + olive oil + canned tomatoes + lentils + salt and pepper + turnip + vegetable stock + onion",
-  //   //     timeReady: "55 minutes",
-  //   //     title: "Red Lentil Soup with Chicken and Turnips",
-  //   //   },
-  // ]);
 
   return (
     <>
       <div className={s.list}>
         {recipes?.map((item) => (
           <Card
-            className={s.card_recipe}
+            className={s.list__item}
             onClick={() => navigate(`${item.id}`)}
             key={item.id}
             image={item.image}
-            captionSlot={<div className={s.caption}> <img src={time} alt="" className={s.caption_img}/> {item.timeReady}</div>}
+            captionSlot={<div className={s['list__item-caption']}> <img src={time} alt="" className={s["item__caption-img"]}/> {item.timeReady}</div>}
             title={item.title}
             subtitle={item.ingredients}
             contentSlot={`${item.calories} kcal`}

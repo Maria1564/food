@@ -1,5 +1,5 @@
-import React from 'react';
 import Text from "components/Text"
+import React from 'react';
 import "./Card.scss"
 
 export type CardProps = {

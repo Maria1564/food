@@ -1,11 +1,12 @@
-import React from "react";
-import s from "./Navbar.module.scss";
-import logo from "./assets/logo.svg";
-import favoriteIcon from "./assets/favorite_icon.svg";
-import profileIcon from "./assets/profile_icon.svg";
-import Text from "components/Text";
-import { Link, NavLink } from "react-router-dom";
 import classNames from "classnames";
+import Text from "components/Text";
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
+
+import favoriteIcon from "./assets/favorite_icon.svg";
+import logo from "./assets/logo.svg";
+import profileIcon from "./assets/profile_icon.svg";
+import s from "./Navbar.module.scss";
 
 type TypeIsActiveFunc = ({ isActive }: { isActive: boolean }) => string;
 const isActive: TypeIsActiveFunc = ({ isActive }) =>

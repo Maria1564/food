@@ -1,5 +1,6 @@
 import MultiDropdown from 'components/MultiDropdown'
 import React from 'react'
+
 import s from "./FilterType.module.scss"
 
 

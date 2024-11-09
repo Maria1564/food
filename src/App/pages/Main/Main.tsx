@@ -1,32 +1,33 @@
-import React from "react";
-import Text from "components/Text";
-import imgBg from "./assets/main_bg.png";
 import classNames from "classnames";
+import Text from "components/Text";
+import React from "react";
+
+import imgBg from "./assets/main_bg.png";
+import FilterTypes from "./components/FilterTypes";
+import ListRecipes from "./components/ListRecipes";
 import Search from "./components/Search";
 import s from "./Main.module.scss";
-import ListRecipes from "./components/ListRecipes";
-import FilterTypes from "./components/FilterTypes";
 
 const Main: React.FC = () => {
 
   return (
-    <>
-      <div className={s.wrapper}>
-        <img src={imgBg} alt="background" className={s.wrapper_bg} />
+    <div className={s.maim}>
+      <div className={s.main__wrapper}>
+        <img src={imgBg} alt="background" className={s["main__wrapper-bg"]} />
       </div>
-      <div className={classNames("container", s.main_container)}>
+      <div className={classNames("container", s.main__container)}>
         <Text tag="h2" view="p-20">
           Find the perfect food and 
-          <span className={s.underline}> drink ideas</span> for every occasion,
-          from <span className={s.underline}>weeknight dinners</span> to
-          <span className={s.underline}> holiday feasts</span>.
+          <Text tag="span" view="p-20" className={s.main__container_underline}> drink ideas</Text> for every occasion,
+          from <Text tag="span" view="p-20" className={s.main__container_underline}>weeknight dinners</Text> to
+          <Text tag="span" view="p-20"  className={s.main__container_underline}> holiday feasts</Text>.
         </Text>
         <Search/>
         <FilterTypes/>
         <ListRecipes/>
         
       </div>
-    </>
+    </div>
   );
 };
 

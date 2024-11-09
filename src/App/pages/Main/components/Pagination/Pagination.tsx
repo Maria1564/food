@@ -1,7 +1,8 @@
+import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+
 import s from "./Pagination.module.scss";
-import classNames from "classnames";
 
 type PaginationProps = {
   setQueryParams: (prev: { offset: number; page: number }) => void;
@@ -85,12 +86,12 @@ const Pagination: React.FC<PaginationProps> = ({ setQueryParams, totalRecipes })
     setQueryParams({ page: Number(page) + 1, offset: (Number(page))*9 });
   };
   return (
-    <div className={s.wrapper_pagination}>
-      <div className="">
+    <div className={s.pagination__wrapper}>
+      <div>
         {Number(page) !== 1 ? (
           <svg
             onClick={togglePrevArrow}
-            className={s.arrow_left}
+            className={s['pagination__arrow-left']}
             width="38"
             height="42"
             viewBox="0 0 38 42"
@@ -129,9 +130,9 @@ const Pagination: React.FC<PaginationProps> = ({ setQueryParams, totalRecipes })
         return (
           <div
             key={index}
-            className={classNames(s.page, {
-              [s.num_page]: !isNaN(Number(item)),
-              [s.active_page]: item === Number(page),
+            className={classNames(s.pagination__page, {
+              [s['pagination__page-num']]: !isNaN(Number(item)),
+              [s.pagination__page_active]: item === Number(page),
             })}
             onClick={() => handlerClick(item as string)}
           >
@@ -141,7 +142,7 @@ const Pagination: React.FC<PaginationProps> = ({ setQueryParams, totalRecipes })
       })}
       {Number(page) !== pages[pages.length - 1] ? (
         <svg onClick={toggleNextArrow}
-        className={s.arrow_right}
+        className={s['pagination__arrow-right']}
           width="38"
           height="42"
           viewBox="0 0 38 42"

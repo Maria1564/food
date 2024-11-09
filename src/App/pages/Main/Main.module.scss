@@ -1,20 +1,24 @@
 @use "styles/variables" as v;
 
-.wrapper {
+.main{
 
-    &_bg{
-        width: 100%;
-        object-fit: cover;
+    &__wrapper {
+    
+        &-bg{
+            width: 100%;
+            object-fit: cover;
+        }
+    
     }
-
-}
-
-div.main_container {
-    padding-top: 36px;
-    padding-bottom: 28px;
-    text-align: center;
-
-    .underline {
-        text-decoration: underline;
+    
+    &__container {
+        padding-top: 36px;
+        padding-bottom: 28px;
+        text-align: center;
+    
+        &_underline {
+            display: inline;
+            text-decoration: underline;
+        }
     }
 }

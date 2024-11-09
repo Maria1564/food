@@ -1,6 +1,7 @@
-import * as React from 'react';
-import { IconProps } from '../Icon';
 import classNames from 'classnames';
+import * as React from 'react';
+
+import { IconProps } from '../Icon';
 
 const ArrowDownIcon: React.FC<IconProps> = ({ color, ...other }) => {
   let fill = '#000000';

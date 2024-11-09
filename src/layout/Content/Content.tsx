@@ -1,16 +1,14 @@
-import Navbar from 'layout/Navbar'
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import Navbar from "layout/Navbar";
+import React from "react";
+import { Outlet } from "react-router-dom";
 
-
-
-const Content:React.FC = () => {
+const Content: React.FC = () => {
   return (
     <div>
-        <Navbar/>
-        <Outlet/>
+      <Navbar />
+      <Outlet />
     </div>
-  )
-}
+  );
+};
 
-export default Content
+export default Content;

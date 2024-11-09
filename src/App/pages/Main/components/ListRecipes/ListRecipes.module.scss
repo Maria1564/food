@@ -1,16 +1,16 @@
 @use "styles/variables" as v;
 @use "styles/mixins" as m;
 
-.caption {
-    @include m.align-items-center();
-    gap: 8px;
-}
 .list {
     display: flex;
     flex-wrap: wrap;
     gap: 64px  80px;
     margin-top: 48px;
-}
-.card_recipe span{
-    color: v.$brand;
+    &__item{
+      
+        &-caption {
+            @include m.align-items-center();
+            gap: 8px;
+        }
+    }
 }

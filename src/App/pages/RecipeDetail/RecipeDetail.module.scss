@@ -1,136 +1,138 @@
 @use "styles/variables" as v;
 @use "styles/mixins" as m;
 
-.wrapper {
+.recipe {
+  &__wrapper {
     position: relative;
     overflow: hidden;
-    &:after{
-        content: url("./assets/Pattern.svg");
-        position: absolute;
-        top: -48px;
-        right: -20px;
-    }
-}
 
-.back {
+    &:after {
+      content: url("./assets/Pattern.svg");
+      position: absolute;
+      top: -48px;
+      right: -20px;
+    }
+  }
+
+  &__about {
+    @include m.align-items-center();
+    gap: 166px;
+    flex-wrap: wrap;
+
+    & img {
+      border-radius: v.$border-radius;
+    }
+  }
+
+  &__general {
+    display: flex;
+    gap: 100px;
+    flex-wrap: wrap;
+    text-align: center;
+
+    &-text {
+      color: v.$brand;
+    }
+  }
+
+  &__back {
     margin-top: 49px;
     margin-bottom: 37px;
     @include m.align-items-center();
     gap: v.$space-m;
 
     & > img {
-        cursor: pointer;
+      cursor: pointer;
     }
-}
+  }
 
-
-.about {
-    @include m.align-items-center();
-    gap: 166px;
-    flex-wrap: wrap;
-
-
-    & img{
-       border-radius: v.$border-radius;
-    }
-
-    .general {
-        display: flex;
-        gap: 100px;
-        flex-wrap: wrap;
-        text-align: center;
-
-        &_text{
-            color: v.$brand;
-        }
-    }
-}
-
-.summary {
+  &__summary {
     width: 100%;
     border-radius: v.$border-radius;
-    background-color: #B5460F54;
+    background-color: #b5460f54;
     padding: 36px;
     margin: 48px 0;
-}
+  }
 
-.details {
+  &__details {
     @include m.align-items-center();
     align-items: start;
     gap: 37px;
     padding-bottom: 57px;
-}
+  }
 
-.ingredients {
+  &__ingredients {
     position: relative;
-    &_list {
-        display: flex;
-        max-width: 628px;
-        flex-wrap: wrap;
-        gap: 8px 30px;
-
-        & > li {
-            flex-basis: 298px;
-            @include m.align-items-center();
-            gap: 16px;
-        }
+    &-list {
+      display: flex;
+      max-width: 628px;
+      flex-wrap: wrap;
+      gap: 8px 30px;
     }
 
-    &::after{
-        content: "";
-        position: absolute;
-        display: block;
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background-color: v.$brand;
-        top: 0;
-        right: 0;
+    &-item {
+      flex-basis: 298px;
+      @include m.align-items-center();
+      gap: 16px;
     }
 
-    &::before{
-        content: "";
-        position: absolute;
-        display: block;
-        width: 1px;
-        height: 90%;
-        border-radius: 50%;
-        background-color: v.$brand;
-        top: 10px;
-        right: 3px;
+    &::after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: v.$brand;
+      top: 0;
+      right: 0;
     }
-}
 
-.equipment {
-    &_list {
-        display: flex;
-        max-width: 628px;
-        flex-wrap: wrap;
-        gap: 8px 30px;
-
-        & > li {
-            flex-basis: 298px;
-            @include m.align-items-center();
-            gap: 16px;
-        }
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 1px;
+      height: 90%;
+      border-radius: 50%;
+      background-color: v.$brand;
+      top: 10px;
+      right: 3px;
     }
-}
+  }
 
-.directions {
+  &__equipment {
+    &-list {
+      display: flex;
+      max-width: 628px;
+      flex-wrap: wrap;
+      gap: 8px 30px;
+
+      & > li {
+        flex-basis: 298px;
+        @include m.align-items-center();
+        gap: 16px;
+      }
+    }
+  }
+
+  &__directions {
     max-width: 737px;
     padding-bottom: 53px;
-
-    & > h3 {
-        margin-bottom: 24px;
+  
+    &-title {
+      margin-bottom: 24px;
     }
-
-    .step {
-        &:not(:last-child){
-            padding-bottom: v.$space-m;
-        }
-
-        &_title {
-            margin-bottom: 8px;
-        }
-    }
+  
 }
+&__step {
+  &:not(:last-child) {
+    padding-bottom: v.$space-m;
+  }
+
+  &-title {
+    margin-bottom: 8px;
+  }
+}
+}
+
