@@ -1,11 +1,12 @@
 import { apiClient } from "axiosConfig";
 import Text from "components/Text/Text.tsx";
 import React, { useEffect, useRef, useState } from "react";
+import ReactHtmlParser from "react-html-parser";
 import { useNavigate, useParams } from "react-router-dom";
 
 import arrow_right from ".//assets/arrow_right.svg";
-import dish_tray from "./assets/dish_tray.svg";
-import ladle from "./assets/ladle.svg";
+import About from "./About/About";
+import PreparationList from "./PreparationList";
 import s from "./RecipeDetail.module.scss";
 
 interface IAboutRecipes {
@@ -17,6 +18,7 @@ interface IAboutRecipes {
   ingredients: string[];
   equipment?: string[];
   steps: string[];
+  summary: string;
 }
 const RecipeDetail: React.FC = () => {
   const [infoRecipes, setInfoRecipes] = useState<IAboutRecipes | null>(null);
@@ -29,15 +31,25 @@ const RecipeDetail: React.FC = () => {
       const arrIngredients = data.extendedIngredients.map(
         (elem: { original: string }) => elem.original
       );
-      const arrEquipments = data.analyzedInstructions[0].steps.map(
-        (elem: { equipment: { localizedName: string }[] }) =>
-          elem.equipment.length &&
-          elem.equipment.map((item) => item.localizedName)[0]
+      console.log(data.arrIngredients);
+
+      const arrEquipments = data.analyzedInstructions[0]
+        ? data.analyzedInstructions[0].steps.map(
+            (elem: { equipment: { localizedName: string }[] }) =>
+              elem.equipment.length &&
+              elem.equipment.map((item) => item.localizedName)[0]
+          )
+        : [];
+
+      const sortedArrEquipments = arrEquipments.filter(
+        (num: number) => num !== 0
       );
-      const sortedArrEquipments = arrEquipments.filter((num: number) => num !== 0);
-      const arrSteps = data.analyzedInstructions[0].steps.map(
-        (elem: {step: string}) => elem.step
-      );
+      const arrSteps = data.analyzedInstructions[0]
+        ? data.analyzedInstructions[0].steps.map(
+            (elem: { step: string }) => elem.step
+          )
+        : [];
+
       setInfoRecipes({
         title: data.title,
         image: data.image,
@@ -47,11 +59,8 @@ const RecipeDetail: React.FC = () => {
         ingredients: arrIngredients,
         equipment: sortedArrEquipments,
         steps: arrSteps,
+        summary: data.summary,
       });
-      if (divRef.current) {
-        divRef.current.innerHTML = `
-                   ${data.summary}`;
-      }
     });
   }, [id]);
 
@@ -64,85 +73,28 @@ const RecipeDetail: React.FC = () => {
             {infoRecipes?.title}
           </Text>
         </div>
-        <div className={s.recipe__about}>
-          <img src={infoRecipes?.image} alt="img" />
-          <div className={s.recipe__general}>
-            <div className={s.recipe__total}>
-              <Text tag="span" view="p-16">
-                Total
-              </Text>
-              <Text
-                tag="span"
-                view="p-16"
-                weight="medium"
-                className={s['recipe__general-text']}
-              >
-                {infoRecipes?.totalMinutes} minutes
-              </Text>
-            </div>
-            <div className={s.total}>
-              <Text tag="span" view="p-16">
-                Ratings
-              </Text>
-              <Text
-                tag="span"
-                view="p-16"
-                weight="medium"
-                className={s['recipe__general-text']}
-              >
-                {infoRecipes?.ratings} likes
-              </Text>
-            </div>
-            <div className={s.serving}>
-              <Text tag="span" view="p-16">
-                Servings
-              </Text>
-              <Text
-                tag="span"
-                view="p-16"
-                weight="medium"
-                className={s['recipe__general-text']}
-              >
-                {infoRecipes?.servings} servings
-              </Text>
-            </div>
-          </div>
+        <About
+          image={infoRecipes?.image}
+          ratings={infoRecipes?.ratings}
+          totalMinutes={infoRecipes?.totalMinutes}
+          servings={infoRecipes?.servings}
+        />
+        <div ref={divRef} className={s.recipe__summary}>
+          {ReactHtmlParser(infoRecipes?.summary || "")}
         </div>
-        <div ref={divRef} className={s.recipe__summary}></div>
         <div className={s.recipe__details}>
-          <div className={s.recipe__ingredients}>
-            <Text tag="h3" view="p-20" weight="medium">
-              Ingredients
-            </Text>
-            <ul className={s['recipe__ingredients-list']}>
-              {infoRecipes?.ingredients.map((item, index) => (
-                <li key={index} className={s['recipe__ingredients-item']}>
-                  <img src={dish_tray} alt="dish" />
-                  <Text tag="span" view="p-16" className={s['recipe__item-text']}>
-                    {item}
-                  </Text>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className={s.recipe__equipment}>
-            <Text tag="h3" view="p-20" weight="medium">
-              Equipment
-            </Text>
-            <ul className={s['recipe__equipment-list']}>
-              {infoRecipes?.equipment?.map((item, index) => (
-                <li key={index}>
-                  <img src={ladle} alt="ladle" />
-                  <Text tag="span" view="p-16" className={s.equipment_text}>
-                    {item}
-                  </Text>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <PreparationList
+            ingredients={infoRecipes?.ingredients || []}
+            equipment={infoRecipes?.equipment || []}
+          />
         </div>
         <div className={s.recipe__directions}>
-          <Text tag="h3" view="p-20" weight="medium" className={s[`recipe__directions-title`]}>
+          <Text
+            tag="h3"
+            view="p-20"
+            weight="medium"
+            className={s[`recipe__directions-title`]}
+          >
             Directions
           </Text>
           {infoRecipes?.steps.map((item, index) => (
@@ -151,7 +103,7 @@ const RecipeDetail: React.FC = () => {
                 tag="h4"
                 view="p-16"
                 weight="medium"
-                className={s['recipe__step-title']}
+                className={s["recipe__step-title"]}
               >
                 Step {index + 1}
               </Text>

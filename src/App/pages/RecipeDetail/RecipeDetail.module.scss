@@ -14,16 +14,6 @@
     }
   }
 
-  &__about {
-    @include m.align-items-center;
-    gap: 166px;
-    flex-wrap: wrap;
-
-    & img {
-      border-radius: v.$border-radius;
-    }
-  }
-
   &__general {
     display: flex;
     gap: 100px;
@@ -49,7 +39,7 @@
   &__summary {
     width: 100%;
     border-radius: v.$border-radius;
-    background-color: #b5460f54;
+    background-color: v.$background-brand;
     padding: 36px;
     margin: 48px 0;
   }
@@ -61,78 +51,21 @@
     padding-bottom: 57px;
   }
 
-  &__ingredients {
-    position: relative;
-    &-list {
-      display: flex;
-      max-width: 710px;
-      flex-wrap: wrap;
-      gap: 8px 30px;
-    }
-
-    &-item {
-      flex-basis: 298px;
-      @include m.align-items-center;
-      gap: 16px;
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      display: block;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background-color: v.$brand;
-      top: 0;
-      right: 0;
-    }
-
-    &::before {
-      content: "";
-      position: absolute;
-      display: block;
-      width: 1px;
-      height: 90%;
-      border-radius: 50%;
-      background-color: v.$brand;
-      top: 10px;
-      right: 3px;
-    }
-  }
-
-  &__equipment {
-    &-list {
-      display: flex;
-      max-width: 628px;
-      flex-wrap: wrap;
-      gap: 8px 30px;
-
-      & > li {
-        flex-basis: 298px;
-        @include m.align-items-center;
-        gap: 16px;
-      }
-    }
-  }
-
   &__directions {
     max-width: 737px;
     padding-bottom: 53px;
-  
+
     &-title {
       margin-bottom: 24px;
     }
-  
-}
-&__step {
-  &:not(:last-child) {
-    padding-bottom: v.$space-m;
   }
+  &__step {
+    &:not(:last-child) {
+      padding-bottom: v.$space-m;
+    }
 
-  &-title {
-    margin-bottom: 8px;
+    &-title {
+      margin-bottom: 8px;
+    }
   }
 }
-}
-

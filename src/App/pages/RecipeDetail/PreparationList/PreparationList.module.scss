@@ -1,0 +1,59 @@
+@use "styles/variables" as v;
+@use "styles/mixins" as m;
+
+.recipe {
+    &__ingredients {
+        position: relative;
+        &-list {
+          display: flex;
+          max-width: 710px;
+          flex-wrap: wrap;
+          gap: 8px 30px;
+        }
+    
+        &-item {
+          flex-basis: 298px;
+          @include m.align-items-center;
+          gap: 16px;
+        }
+    
+        &::after {
+          content: "";
+          position: absolute;
+          display: block;
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background-color: v.$brand;
+          top: 0;
+          right: 0;
+        }
+    
+        &::before {
+          content: "";
+          position: absolute;
+          display: block;
+          width: 1px;
+          height: 90%;
+          border-radius: 50%;
+          background-color: v.$brand;
+          top: 10px;
+          right: 3px;
+        }
+      }
+    
+      &__equipment {
+        &-list {
+          display: flex;
+          max-width: 628px;
+          flex-wrap: wrap;
+          gap: 8px 30px;
+    
+        }
+        &-item {
+          flex-basis: 298px;
+          @include m.align-items-center;
+          gap: 16px;
+        }
+      }
+}
