@@ -15,7 +15,7 @@
   }
 
   &__about {
-    @include m.align-items-center();
+    @include m.align-items-center;
     gap: 166px;
     flex-wrap: wrap;
 
@@ -38,7 +38,7 @@
   &__back {
     margin-top: 49px;
     margin-bottom: 37px;
-    @include m.align-items-center();
+    @include m.align-items-center;
     gap: v.$space-m;
 
     & > img {
@@ -55,7 +55,7 @@
   }
 
   &__details {
-    @include m.align-items-center();
+    @include m.align-items-center;
     align-items: start;
     gap: 37px;
     padding-bottom: 57px;
@@ -65,14 +65,14 @@
     position: relative;
     &-list {
       display: flex;
-      max-width: 628px;
+      max-width: 710px;
       flex-wrap: wrap;
       gap: 8px 30px;
     }
 
     &-item {
       flex-basis: 298px;
-      @include m.align-items-center();
+      @include m.align-items-center;
       gap: 16px;
     }
 
@@ -110,7 +110,7 @@
 
       & > li {
         flex-basis: 298px;
-        @include m.align-items-center();
+        @include m.align-items-center;
         gap: 16px;
       }
     }

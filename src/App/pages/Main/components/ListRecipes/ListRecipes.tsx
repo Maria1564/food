@@ -1,27 +1,20 @@
+import { apiClient } from "axiosConfig";
 import Button from "components/Button";
 import Card from "components/Card";
-import React, { useEffect, useState } from "react";
+import Loader from "components/Loader";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
 import s from "./ListRecipes.module.scss";
-import { apiClient } from "../../../../../axiosConfig";
 import time from "../../assets/time.svg"
 import Pagination from "../Pagination";
+import { TypeIngredients, TypeRecipes, TypeResponse } from "./type";
 
 const ListRecipes: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [recipes, setRecipes] = useState<
-    {
-      id: number;
-      calories: string;
-      image: string;
-      ingredients: string;
-      timeReady: string;
-      title: string;
-    }[]
-  >([]);
+  const [recipes, setRecipes] = useState<TypeRecipes>([]);
 
   const [totalRecipes, setTotalRecipes] = useState(10)
 
@@ -29,7 +22,7 @@ const ListRecipes: React.FC = () => {
     offset: number;
     page: number;
   }>({
-    offset: (Number(Number(searchParams.get("page"))) - 1) * 9,
+    offset: searchParams.get("page") ? ((Number(searchParams.get("page"))) - 1) * 9 : 0,
     page: Number(searchParams.get("page")) || 1,
   });
 
@@ -37,56 +30,64 @@ const ListRecipes: React.FC = () => {
     const caloriesMatch = summary.match(/(\d+)\s*calories/);
     if (caloriesMatch) {
       const calories = caloriesMatch[1];
-      return calories; // Вывод: Калории: 289
+      return calories; 
     } else {
       console.log("Информация о калориях не найдена.");
     }
   };
 
-  const splitIngredients = (arrayIngr: { name: string }[]): string => {
-    // console.log(arrayIngr);
-    const result = arrayIngr.map((item: { name: string }) => item.name);
+  const splitIngredients = (arrayIngr: TypeIngredients): string => {
+    const result = arrayIngr.map((item) => item.name);
     return result.join(" + ");
   };
+
   useEffect(() => {
-    apiClient
-      .get(
-        `/recipes/complexSearch?addRecipeInformation=true&fillIngredients=true&number=9&offset=${queryParams.offset}`
-      )
-      .then(({ data }) => {
-        console.log(data,  data.totalResults)
+    const params = {
+      addRecipeInformation: true,
+      fillIngredients: true,
+      number: 9,
+      offset: queryParams.offset
+    }
+    const getListRecipes = async()=>{
+      try {
+        const {data} = await apiClient.get(`/recipes/complexSearch`, {params} )
+        
         setTotalRecipes(() =>  data.totalResults)
         const arr = data.results.map(
-          (elem: {
-            id: number;
-            title: string;
-            image: string;
-            summary: string;
-            readyInMinutes: number;
-            extendedIngredients: { name: string }[];
-          }) => ({
-            id: elem.id,
-            title: elem.title,
-            image: elem.image,
-            calories: MatchCalories(elem.summary),
-            timeReady: `${elem.readyInMinutes} minutes`,
-            ingredients: splitIngredients(elem.extendedIngredients),
-          })
-        );
-        setRecipes(arr);
-      })
-      .catch((err) => console.log(err.message));
+              (elem: TypeResponse
+              ) => ({
+                id: elem.id,
+                title: elem.title,
+                image: elem.image,
+                calories: MatchCalories(elem.summary),
+                timeReady: `${elem.readyInMinutes} minutes`,
+                ingredients: splitIngredients(elem.extendedIngredients),
+              })
+            );
+
+            setRecipes(arr);
+          
+      } catch (error) {
+        if(error instanceof Error){
+          console.log(error.message)
+        }
+      }
+      
+    }
+
+    getListRecipes()
     
   }, [queryParams]);
 
+  const redirectToCard = useCallback((idCard: number) => navigate(`${idCard}`), [navigate])
 
   return (
     <>
-      <div className={s.list}>
-        {recipes?.map((item) => (
+     {recipes.length ? <div className={s.list}>
+        {recipes.map((item) => (
           <Card
             className={s.list__item}
-            onClick={() => navigate(`${item.id}`)}
+            onClick={redirectToCard.bind(null, item.id)}
             key={item.id}
             image={item.image}
             captionSlot={<div className={s['list__item-caption']}> <img src={time} alt="" className={s["item__caption-img"]}/> {item.timeReady}</div>}
@@ -98,7 +99,7 @@ const ListRecipes: React.FC = () => {
             }
           />
         ))}
-      </div>
+      </div> : <Loader/>}
       <Pagination setQueryParams={setQueryParams} totalRecipes={totalRecipes}/>
     </>
   );

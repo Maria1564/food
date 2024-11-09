@@ -1,8 +1,9 @@
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import s from "./Pagination.module.scss";
+import { createPagination } from "./utils";
 
 type PaginationProps = {
   setQueryParams: (prev: { offset: number; page: number }) => void;
@@ -12,79 +13,48 @@ type PaginationProps = {
 const Pagination: React.FC<PaginationProps> = ({ setQueryParams, totalRecipes }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [pages, setPages] = useState<(string | number)[]>([]);
-  const [page, setPage] = useState("1");
+  const [page, setPage] = useState<number>(1);
 
-  const createNewQuery = (key: string, page: string) => {
+  const createNewQuery = useCallback((key: string, page: string) => {
     setSearchParams((prev) => {
       const params = new URLSearchParams(prev);
       params.set(key, page);
       return params;
     });
-  };
+  }, [setSearchParams]);
 
   useEffect(() => {
-    setPage(searchParams.get("page") || "1");
+    setPage(Number(searchParams.get("page")) || 1);
     if (searchParams.get("page") === null) {
       createNewQuery("page", "1");
     }
-  }, [searchParams]);
+  }, [searchParams, createNewQuery]);
 
-  const createPagination = (currentPage: string) => {
-    console.log(totalRecipes)
-    const countPage = Math.ceil(totalRecipes / 9);
-    if (Number(currentPage) === 1 || Number(currentPage) === 2) {
-      setPages(() => [1, 2, 3, "...", countPage]);
-    } else if (
-      Number(currentPage) === countPage ||
-      Number(currentPage) === countPage - 1
-    ) {
-      setPages(() => [1, "...", countPage - 2, countPage - 1, countPage]);
-    } else if (Number(currentPage) === 3) {
-      setPages(() => [1, 2, 3, 4, "...", countPage]);
-    } else if (Number(currentPage) === countPage - 2) {
-      setPages(() => [
-        1,
-        "...",
-        countPage - 3,
-        countPage - 2,
-        countPage - 1,
-        countPage,
-      ]);
-    } else {
-      setPages(() => [
-        1,
-        "...",
-        Number(currentPage) - 1,
-        Number(currentPage),
-        Number(currentPage) + 1,
-        "...",
-        countPage,
-      ]);
-    }
-  };
+  
+
   useEffect(() => {
-    createPagination(page);
+    createPagination(page, totalRecipes, setPages);
   }, [page, totalRecipes]);
 
-  const handlerClick = (currentPage: string) => {
-    if (isNaN(Number(currentPage)) || currentPage == page) {
+  const handlerClick = useCallback((currentPage: number) => {
+    if ( currentPage === page) {
       return;
     }
     const offset = (Number(currentPage)-1)*9;
-    createNewQuery("page", currentPage);
+    createNewQuery("page", String(currentPage));
     setQueryParams({ page: Number(currentPage), offset });
-  };
+  }, [page, createNewQuery, setQueryParams]);
 
-  const togglePrevArrow = () => {
+  const togglePrevArrow = useCallback(() => {
     createNewQuery("page", String(Number(page) - 1));
-
     setQueryParams({ page: Number(page) - 1, offset: (Number(page)-2)*9 });
-  };
+  }, [createNewQuery, page, setQueryParams]);
 
-  const toggleNextArrow = () => {
+  const toggleNextArrow = useCallback(() => {
     createNewQuery("page", String(Number(page) + 1));
     setQueryParams({ page: Number(page) + 1, offset: (Number(page))*9 });
-  };
+  }, [createNewQuery, setQueryParams, page]);
+  
   return (
     <div className={s.pagination__wrapper}>
       <div>
@@ -134,7 +104,7 @@ const Pagination: React.FC<PaginationProps> = ({ setQueryParams, totalRecipes })
               [s['pagination__page-num']]: !isNaN(Number(item)),
               [s.pagination__page_active]: item === Number(page),
             })}
-            onClick={() => handlerClick(item as string)}
+            onClick={() => handlerClick(item as number)}
           >
             {item}
           </div>

@@ -1,3 +1,4 @@
+import { apiClient } from "axiosConfig";
 import Text from "components/Text/Text.tsx";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,7 +7,6 @@ import arrow_right from ".//assets/arrow_right.svg";
 import dish_tray from "./assets/dish_tray.svg";
 import ladle from "./assets/ladle.svg";
 import s from "./RecipeDetail.module.scss";
-import { apiClient } from "../../../axiosConfig.ts";
 
 interface IAboutRecipes {
   title: string;
@@ -129,7 +129,7 @@ const RecipeDetail: React.FC = () => {
             <Text tag="h3" view="p-20" weight="medium">
               Equipment
             </Text>
-            <ul className={s['recipe__equipment_list']}>
+            <ul className={s['recipe__equipment-list']}>
               {infoRecipes?.equipment?.map((item, index) => (
                 <li key={index}>
                   <img src={ladle} alt="ladle" />
