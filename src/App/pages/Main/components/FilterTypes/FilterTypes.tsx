@@ -1,14 +1,22 @@
 import MultiDropdown from 'components/MultiDropdown'
-import React from 'react'
+import React, { useCallback } from 'react'
 
+import { options } from './dataOptions'
 import s from "./FilterType.module.scss"
+import { OptionsType } from './types'
+import { getTitle } from './utils'
 
 
 
 const FilterTypes: React.FC = () => {
+
+  const handlerGetTitle = useCallback(() => getTitle([{key: "soup", value:"soup"}]), [])
+
+  const handlerChange  = useCallback((value: OptionsType): void => {console.log(value)}, [])
+
   return (
     <>
-      <MultiDropdown className={s.filter} onChange={()=>{}}  getTitle={()=>"categories"} options={[{key: "dessert", value:"dessert"}, {key: "soup", value:"soup"}, {key: "breakfast", value:"breakfast"},{key: "appetizer", value:"appetizer"}, ]} value={[{key: "soup", value:"soup"}]}/>
+      <MultiDropdown className={s.filter} onChange={handlerChange}  getTitle={handlerGetTitle} options={options} value={[{key: "soup", value:"soup"}]}/>
     </>
   )
 }

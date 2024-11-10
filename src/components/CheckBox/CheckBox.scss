@@ -1,9 +1,9 @@
 @use "styles/variables" as v;
+@use "styles/mixins" as m;
 
 .checkbox_wrapper {
     position: relative;
-    width: 40px;
-    height: 40px;
+    @include m.square(40px);
     background-color: v.$white;
     cursor: pointer;
     border-radius: v.$border-radius;
@@ -11,8 +11,7 @@
 }
 
 .checkbox {
-    width: 40px;
-    height: 40px;
+    @include m.square(40px);
     opacity: 0;
     cursor: pointer;
 }
@@ -29,15 +28,15 @@
     transform: translate(-50%, -50%);
 
     &:disabled {
-        color: #00000033;
+        color: v.$checkbox-color-disabled;
     }
 
 } 
 
 .checked_wrap_dis{
-    background-color: #FFFFFF80;
+    background-color: v.$checkbox-border;
 }
 
 .checked_wrap_dis:hover{
-    border-color:#FFFFFF00;
+    border-color: v.$checkbox-hove-border;
 }

@@ -33,6 +33,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({className:cn, value, optio
   const [currentValue, setCurrentValue] = useState("")
   const [filteredArr, setFilteredArr] = useState<Option[]>([])
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
   
   const placeholder = getTitle(value);
   useEffect(() => {
@@ -121,4 +122,4 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({className:cn, value, optio
 
 };
 
-export default MultiDropdown;
+export default React.memo(MultiDropdown);

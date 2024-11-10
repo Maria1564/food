@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Text from "components/Text";
+import { NavigationPath } from "layout/Navbar/types";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
@@ -28,20 +29,19 @@ const Navbar: React.FC = () => {
           </Text>
         </Link>
         <nav className={s.nav}>
-          <NavLink to="/recipes" className={isActive}>
+          <NavLink to={NavigationPath.RECIPES} className={isActive}>
             Recipes
           </NavLink>
-          <NavLink to="/ingredients" className={isActive}>
+          <NavLink to={NavigationPath.INGREDIENTS} className={isActive}>
             Ingredients
           </NavLink>
-          <NavLink to="/products" className={isActive}>
+          <NavLink to={NavigationPath.PRODUCTS} className={isActive}>
             Products
           </NavLink>
-          <NavLink to="/menu" className={isActive}>
-            {" "}
+          <NavLink to={NavigationPath.MENU} className={isActive}>
             Menu Items
           </NavLink>
-          <NavLink to="/plan" className={isActive}>
+          <NavLink to={NavigationPath.PLAN} className={isActive}>
             Meal Planning
           </NavLink>
         </nav>
