@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import Icon from 'components/icons/Icon';
 import React, { useCallback } from 'react';
+
+import CheckmarkIcon from './CheckmarkIcon';
 import "./CheckBox.scss"
 
 export type CheckBoxProps = Omit<
@@ -16,13 +17,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({ onChange, disabled, ...other }) => 
   return (
     <div className={classNames("checkbox_wrapper", other.className, {"checked_wrap_dis": disabled })}>
       {other.checked && (
-        <Icon width={40} height={40} className='checkbox_icon' color='accent'>
-          <path
-            d="M6.66663 19.3548L16.4625 30L33.3333 11.6667"
-            stroke='currentColor'
-            stroke-width="3.33333"
-          />
-        </Icon>
+        <CheckmarkIcon width={40} height={40} className='checkbox_icon' color='accent'/>
       )}
       <input
         {...other}
