@@ -4,8 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactHtmlParser from "react-html-parser";
 import { useNavigate, useParams } from "react-router-dom";
 
-import arrow_right from ".//assets/arrow_right.svg";
 import About from "./About/About";
+import ArrowLeftIcon from "./ArrowLeftIcon";
 import PreparationList from "./PreparationList";
 import s from "./RecipeDetail.module.scss";
 
@@ -31,7 +31,6 @@ const RecipeDetail: React.FC = () => {
       const arrIngredients = data.extendedIngredients.map(
         (elem: { original: string }) => elem.original
       );
-      console.log(data.arrIngredients);
 
       const arrEquipments = data.analyzedInstructions[0]
         ? data.analyzedInstructions[0].steps.map(
@@ -68,7 +67,7 @@ const RecipeDetail: React.FC = () => {
     <div className={s.recipe__wrapper}>
       <div className="container">
         <div className={s.recipe__back} onClick={() => navigate(-1)}>
-          <img src={arrow_right} alt="arrow" />
+          <ArrowLeftIcon color="accent" width={32} height={32}/>
           <Text tag="h1" view="title" className={s.recipe__title}>
             {infoRecipes?.title}
           </Text>

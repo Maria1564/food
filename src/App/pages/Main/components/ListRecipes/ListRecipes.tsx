@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
 import s from "./ListRecipes.module.scss";
-import time from "../../assets/time.svg"
 import Pagination from "../Pagination";
+import TimeIcon from "./TimeIcon";
 import { TypeIngredients, TypeRecipes, TypeResponse } from "./type";
 
 const ListRecipes: React.FC = () => {
@@ -26,7 +26,7 @@ const ListRecipes: React.FC = () => {
     page: Number(searchParams.get("page")) || 1,
   });
 
-  const MatchCalories = (summary: string) => {
+  const MatchCalories = useCallback((summary: string) => {
     const caloriesMatch = summary.match(/(\d+)\s*calories/);
     if (caloriesMatch) {
       const calories = caloriesMatch[1];
@@ -34,12 +34,12 @@ const ListRecipes: React.FC = () => {
     } else {
       console.log("Информация о калориях не найдена.");
     }
-  };
+  }, []);
 
-  const splitIngredients = (arrayIngr: TypeIngredients): string => {
+  const splitIngredients = useCallback((arrayIngr: TypeIngredients): string => {
     const result = arrayIngr.map((item) => item.name);
     return result.join(" + ");
-  };
+  }, []);
 
   useEffect(() => {
     const params = {
@@ -77,7 +77,7 @@ const ListRecipes: React.FC = () => {
 
     getListRecipes()
     
-  }, [queryParams]);
+  }, [queryParams, MatchCalories, splitIngredients]);
 
   const redirectToCard = useCallback((idCard: number) => navigate(`${idCard}`), [navigate])
 
@@ -90,7 +90,7 @@ const ListRecipes: React.FC = () => {
             onClick={redirectToCard.bind(null, item.id)}
             key={item.id}
             image={item.image}
-            captionSlot={<div className={s['list__item-caption']}> <img src={time} alt="" className={s["item__caption-img"]}/> {item.timeReady}</div>}
+            captionSlot={<div className={s['list__item-caption']}> <TimeIcon width={14} height={14} color="accent"/> {item.timeReady}</div>}
             title={item.title}
             subtitle={item.ingredients}
             contentSlot={`${item.calories} kcal`}

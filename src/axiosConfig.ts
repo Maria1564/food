@@ -7,7 +7,7 @@ export const apiClient = axios.create({
 apiClient.interceptors.request.use((config) => {
     config.params = {
         ...config.params,
-        apiKey: "7ead15bb2f77463e8f157ef20a115a07"
+        apiKey: "8dfc37f1c8da469191f425ed27182a95"
     }
 
     return config
