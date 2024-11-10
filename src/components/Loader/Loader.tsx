@@ -7,6 +7,7 @@ export type LoaderProps = {
   className?: string;
 };
 
+
 const Loader: React.FC<LoaderProps> = ({ size, className }) => {
   return (
     <>
