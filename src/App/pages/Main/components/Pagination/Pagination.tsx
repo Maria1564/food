@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useCallback, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 import ArrowLeftIcon from "./ArrowLeftIcon";
 import ArrowRightIcon from "./ArrowRightIcon";
@@ -19,11 +19,13 @@ const Pagination: React.FC<PaginationProps> = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const [pages, setPages] = useState<(string | number)[]>([]);
   const [page, setPage] = useState<number>(1);
-
+  const loc = useLocation()
+// console.log(loc.search)
   const createNewQuery = useCallback(
     (key: string, page: string) => {
       setSearchParams((prev) => {
         const params = new URLSearchParams(prev);
+        // console.log(params)
         params.set(key, page);
         return params;
       });

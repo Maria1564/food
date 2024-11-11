@@ -10,6 +10,7 @@ import { getTitle } from './utils'
 
 const FilterTypes: React.FC = () => {
   const [arrOptions, setArrOptions] = useState(localStorage.getItem("selectOptions"));
+  
   const handlerGetTitle = useCallback(() => {
     const parsedOptions = arrOptions ? JSON.parse(arrOptions) : [];
     return getTitle(parsedOptions);

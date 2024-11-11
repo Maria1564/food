@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Text from "components/Text";
-import React from "react";
+import React, { useEffect } from "react";
 
 import imgBg from "./assets/main_bg.png";
 import FilterTypes from "./components/FilterTypes";
@@ -9,6 +9,10 @@ import Search from "./components/Search";
 import s from "./Main.module.scss";
 
 const Main: React.FC = () => {
+
+  useEffect(()=>{
+
+  }, [])
 
   return (
     <div className={s.maim}>
