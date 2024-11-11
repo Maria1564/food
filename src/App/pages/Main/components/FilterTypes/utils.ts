@@ -1,5 +1,6 @@
 import { OptionsType } from "./types"
 
 export const getTitle = (arrOptions: OptionsType): string => {
-    return  arrOptions[0].key
+    const newArr  = arrOptions.map(obj => obj.value)
+    return newArr.join(", ")
 }

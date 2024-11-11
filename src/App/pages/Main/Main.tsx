@@ -24,7 +24,7 @@ const Main: React.FC = () => {
         </Text>
         <Search/>
         <FilterTypes/>
-        <ListRecipes/>
+        {/* <ListRecipes/> */}
       </div>
     </div>
   );
