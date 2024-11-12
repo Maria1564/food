@@ -19,7 +19,7 @@ const ListRecipes: React.FC= () => {
   const navigate = useNavigate();
   // const [totalRecipes, setTotalRecipes] = useState(10)
   const [searchParams, setSearchParams] = useSearchParams();
-
+  
   const objContext = useContext(ParamsContext)
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const ListRecipes: React.FC= () => {
             params.query = query;
         }
 
-      // rootStore.listRecipes.getListAPI(params)
+      rootStore.listRecipes.getListAPI(params)
     }
    
 

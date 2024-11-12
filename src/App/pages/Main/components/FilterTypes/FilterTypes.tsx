@@ -16,7 +16,6 @@ const FilterTypes: React.FC = () => {
   const objContext = useContext(ParamsContext);
 
   
-  const loc = useLocation()
   const handlerGetTitle = useCallback(() => {
     const parsedOptions = arrOptions ? JSON.parse(arrOptions) : [];
     return getTitle(parsedOptions);
@@ -24,12 +23,32 @@ const FilterTypes: React.FC = () => {
 
   const handlerChange  = useCallback((value: OptionsType): void => {
     localStorage.setItem("selectOptions", JSON.stringify(value))
-    setArrOptions(JSON.stringify(value))
+
+    setArrOptions(() => JSON.stringify(value))
+
     const query = searchParams.get("query") || ""
     const page = searchParams.get("page")
     const offset = (Number(page) - 1) * 9
+
     objContext?.handlerQueryParams(offset, Number(page), query)
-    console.log(`${loc}`)
+
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+      const selectOptions = localStorage.getItem("selectOptions");
+  
+      if (selectOptions !== null) {
+          const options = JSON.parse(selectOptions);
+          if(options.length === 0){
+            params.delete("type");
+            return params
+          }
+          if (options.length > 0 && options[0].value) {
+              params.set("type", options[0].value);
+          }
+      }
+  
+      return params;
+  });
 
   }, [])
   

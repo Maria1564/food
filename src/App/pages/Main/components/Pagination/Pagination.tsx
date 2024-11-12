@@ -17,10 +17,9 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [pages, setPages] = useState<(string | number)[]>([]);
-  const [page, setPage] = useState<number>(1);
-  const loc = useLocation()
+  const [page, setPage] = useState<number>(Number(searchParams.get("page")));
   const objContext = useContext(ParamsContext)
-// console.log(loc.search)
+
   const createNewQuery = useCallback(
     (key: string, page: string) => {
       setSearchParams((prev) => {
@@ -69,7 +68,7 @@ const Pagination: React.FC<PaginationProps> = ({
     const query = searchParams.get("query") || ""
     objContext?.handlerQueryParams( Number(page) * 9, Number(page) + 1, query );
   }, [createNewQuery, objContext?.handlerQueryParams, page]);
-
+console.log(pages,page, totalRecipes)
   return (
     <div className={s.pagination__wrapper}>
       <div>
