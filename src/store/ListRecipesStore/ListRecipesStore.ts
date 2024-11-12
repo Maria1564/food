@@ -9,6 +9,7 @@ export default class ListRecipesStore {
    private _list: TypeRecipes = []
    private _meta: Meta = Meta.instal
    private _totalRes: number = 0
+   private _typesMeal: ({key: string, value: string})[] = []
    
    constructor() {
       makeAutoObservable(this)
@@ -27,11 +28,26 @@ export default class ListRecipesStore {
       return this._totalRes
    }
 
+   _generateQueryTypesMeal = () => {
+      const storedValue = localStorage.getItem("selectOptions");
+      this._typesMeal = storedValue !== null ? JSON.parse(storedValue) : [];
+
+      if(this._typesMeal.length === 0) return
+
+      const reult = this._typesMeal.reduce((acc: string, item) => {
+         return acc +=`type=${item.value}&`
+      }, "")
+
+      return reult.slice(0, -1)
+   }
+
    getListAPI = async(params: ParamsType): Promise<void> => {
       this._meta = Meta.loading
       this._list = []
 
-      const response = await apiClient.get<{ results: TypeResponse[], totalResults: number }>(`/recipes/complexSearch`, {params}) 
+      const typesMeal = this._generateQueryTypesMeal()
+      console.log(params)
+      const response = await apiClient.get<{ results: TypeResponse[], totalResults: number }>(`/recipes/complexSearch?${typesMeal ? typesMeal : ""}`, {params}) 
       if(response.status < 300 && response.status >=200) {
          this._meta = Meta.success
          this._totalRes = response.data.totalResults

@@ -2,7 +2,7 @@ import Button from "components/Button";
 import Card from "components/Card";
 import Loader from "components/Loader";
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import s from "./ListRecipes.module.scss";
 import Pagination from "../Pagination";
@@ -11,25 +11,32 @@ import { observer } from "mobx-react-lite";
 import { rootStore } from "store/RootStore";
 import { Meta } from "types";
 import { ParamsContext } from "../../../../../App/provider/QueryContext";
+import { ParamsType } from "./type";
 
 
 
 const ListRecipes: React.FC= () => {
   const navigate = useNavigate();
   // const [totalRecipes, setTotalRecipes] = useState(10)
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const objContext = useContext(ParamsContext)
 
   useEffect(() => {
     if(objContext?.queryParams){
 
-      const params = {
+      const params:ParamsType  = {
         addRecipeInformation: true,
         fillIngredients: true,
         number: 9,
         offset: objContext?.queryParams.offset,
-        ...(objContext?.queryParams.query ? { query: objContext?.queryParams.query } : {})
       }
-      rootStore.listRecipes.getListAPI(params)
+      const query = searchParams.get("query");
+        if (query !== null) {
+            params.query = query;
+        }
+
+      // rootStore.listRecipes.getListAPI(params)
     }
    
 

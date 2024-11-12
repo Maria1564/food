@@ -53,7 +53,7 @@ const Pagination: React.FC<PaginationProps> = ({
       const query = searchParams.get("query") || ""
       console.log("q", query)
       createNewQuery("page", String(currentPage));
-      objContext?.handlerQueryParams(Number(currentPage), offset, query );
+      objContext?.handlerQueryParams(offset, Number(currentPage), query );
     },
     [page, createNewQuery, objContext?.handlerQueryParams]
   );
@@ -61,13 +61,13 @@ const Pagination: React.FC<PaginationProps> = ({
   const togglePrevArrow = useCallback(() => {
     createNewQuery("page", String(Number(page) - 1));
     const query = searchParams.get("query") || ""
-    objContext?.handlerQueryParams( Number(page) - 1, (Number(page) - 2) * 9, query );
+    objContext?.handlerQueryParams( (Number(page) - 2) * 9, Number(page) - 1,  query );
   }, [createNewQuery, page, objContext?.handlerQueryParams]);
 
   const toggleNextArrow = useCallback(() => {
     createNewQuery("page", String(Number(page) + 1));
     const query = searchParams.get("query") || ""
-    objContext?.handlerQueryParams( Number(page) + 1, Number(page) * 9, query );
+    objContext?.handlerQueryParams( Number(page) * 9, Number(page) + 1, query );
   }, [createNewQuery, objContext?.handlerQueryParams, page]);
 
   return (
