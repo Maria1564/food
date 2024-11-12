@@ -26,9 +26,10 @@
       "components/*": ["components/*"],
       "config/*": ["config/*"],
       "styles": ["styles/*"],
-      "utils": ["utils/*"],
+      "utils/*": ["utils/*"],
       "layout": ["layout/*"],
-      "types": ["types/*"]
+      "types/*": ["types/*"],
+      "store/*": ["store/*"]
 
     }
   },

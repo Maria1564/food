@@ -1,25 +1,25 @@
 import classNames from "classnames";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 
 import ArrowLeftIcon from "./ArrowLeftIcon";
 import ArrowRightIcon from "./ArrowRightIcon";
 import s from "./Pagination.module.scss";
 import { createPagination } from "./utils";
+import { ParamsContext } from "../../../../.././App/provider/QueryContext";
 
 type PaginationProps = {
-  setQueryParams: (prev: { offset: number; page: number }) => void;
   totalRecipes: number;
 };
 
 const Pagination: React.FC<PaginationProps> = ({
-  setQueryParams,
   totalRecipes,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [pages, setPages] = useState<(string | number)[]>([]);
   const [page, setPage] = useState<number>(1);
   const loc = useLocation()
+  const objContext = useContext(ParamsContext)
 // console.log(loc.search)
   const createNewQuery = useCallback(
     (key: string, page: string) => {
@@ -50,21 +50,25 @@ const Pagination: React.FC<PaginationProps> = ({
         return;
       }
       const offset = (Number(currentPage) - 1) * 9;
+      const query = searchParams.get("query") || ""
+      console.log("q", query)
       createNewQuery("page", String(currentPage));
-      setQueryParams({ page: Number(currentPage), offset });
+      objContext?.handlerQueryParams(Number(currentPage), offset, query );
     },
-    [page, createNewQuery, setQueryParams]
+    [page, createNewQuery, objContext?.handlerQueryParams]
   );
 
   const togglePrevArrow = useCallback(() => {
     createNewQuery("page", String(Number(page) - 1));
-    setQueryParams({ page: Number(page) - 1, offset: (Number(page) - 2) * 9 });
-  }, [createNewQuery, page, setQueryParams]);
+    const query = searchParams.get("query") || ""
+    objContext?.handlerQueryParams( Number(page) - 1, (Number(page) - 2) * 9, query );
+  }, [createNewQuery, page, objContext?.handlerQueryParams]);
 
   const toggleNextArrow = useCallback(() => {
     createNewQuery("page", String(Number(page) + 1));
-    setQueryParams({ page: Number(page) + 1, offset: Number(page) * 9 });
-  }, [createNewQuery, setQueryParams, page]);
+    const query = searchParams.get("query") || ""
+    objContext?.handlerQueryParams( Number(page) + 1, Number(page) * 9, query );
+  }, [createNewQuery, objContext?.handlerQueryParams, page]);
 
   return (
     <div className={s.pagination__wrapper}>

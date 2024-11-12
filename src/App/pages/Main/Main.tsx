@@ -1,18 +1,16 @@
 import classNames from "classnames";
 import Text from "components/Text";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
 import imgBg from "./assets/main_bg.png";
 import FilterTypes from "./components/FilterTypes";
 import ListRecipes from "./components/ListRecipes";
 import Search from "./components/Search";
 import s from "./Main.module.scss";
+import { useSearchParams } from "react-router-dom";
 
 const Main: React.FC = () => {
 
-  useEffect(()=>{
-
-  }, [])
 
   return (
     <div className={s.maim}>
@@ -26,12 +24,12 @@ const Main: React.FC = () => {
           from <Text tag="span" view="p-20" className={s.main__container_underline}>weeknight dinners</Text> to
           <Text tag="span" view="p-20"  className={s.main__container_underline}> holiday feasts</Text>.
         </Text>
-        <Search/>
-        <FilterTypes/>
-        {/* <ListRecipes/> */}
+        <Search />
+        <FilterTypes />
+        <ListRecipes/>
       </div>
     </div>
   );
 };
 
-export default Main;
+export default Main

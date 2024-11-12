@@ -5,11 +5,15 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App/";
 
 import "./styles/styles.scss";
+import UrlParamsProvider from "./App/provider";
 
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
+
   <BrowserRouter>
-    <App />
+    <UrlParamsProvider>
+      <App />
+    </UrlParamsProvider>
   </BrowserRouter>
   /* </StrictMode>, */
 );
