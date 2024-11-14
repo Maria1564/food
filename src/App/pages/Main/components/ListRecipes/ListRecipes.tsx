@@ -1,7 +1,7 @@
 import Button from "components/Button";
 import Card from "components/Card";
 import Loader from "components/Loader";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import s from "./ListRecipes.module.scss";

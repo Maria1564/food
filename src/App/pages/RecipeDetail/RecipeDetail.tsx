@@ -28,6 +28,7 @@ const RecipeDetail: React.FC = () => {
 
   useEffect(() => {
     apiClient.get(`/recipes/${id}/information`).then(({ data }) => {
+      console.log(data)
       const arrIngredients = data.extendedIngredients.map(
         (elem: { original: string }) => elem.original
       );

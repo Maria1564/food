@@ -68,7 +68,11 @@ const Pagination: React.FC<PaginationProps> = ({
     const query = searchParams.get("query") || ""
     objContext?.handlerQueryParams( Number(page) * 9, Number(page) + 1, query );
   }, [createNewQuery, objContext?.handlerQueryParams, page]);
-console.log(pages,page, totalRecipes)
+  console.log(pages)
+  if(totalRecipes === 0) {
+    return <></>
+  }
+
   return (
     <div className={s.pagination__wrapper}>
       <div>
