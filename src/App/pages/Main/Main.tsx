@@ -1,13 +1,12 @@
 import classNames from "classnames";
 import Text from "components/Text";
-import React, { useState } from "react";
+import React from "react";
 
 import imgBg from "./assets/main_bg.png";
 import FilterTypes from "./components/FilterTypes";
 import ListRecipes from "./components/ListRecipes";
 import Search from "./components/Search";
 import s from "./Main.module.scss";
-import { useSearchParams } from "react-router-dom";
 
 const Main: React.FC = () => {
 

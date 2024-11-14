@@ -17,9 +17,7 @@ import { ParamsType } from "./type";
 
 const ListRecipes: React.FC= () => {
   const navigate = useNavigate();
-  // const [totalRecipes, setTotalRecipes] = useState(10)
   const [searchParams, setSearchParams] = useSearchParams();
-  
   const objContext = useContext(ParamsContext)
 
   useEffect(() => {

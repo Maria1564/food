@@ -21,18 +21,6 @@ const UrlParamsProvider: React.FC<UrlParamsProviderProps> = ({children}) => {
         page: Number(searchParams.get("page")) || 1,
         query: ""
     })
-    
-    useEffect(()=>{
-        const currentPath = window.location.pathname;
-        if(currentPath === "/recipes"){
-
-            setSearchParams((prev) => {
-                const params = new URLSearchParams(prev);
-                params.set("page", String(queryParams.page));
-                return params;
-              });
-        }
-    }, [])
 
     const handlerQueryParams = useCallback((offset: number, page: number, query: string)=>{
         setQueryParams(() => ({

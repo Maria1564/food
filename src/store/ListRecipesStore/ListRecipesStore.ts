@@ -1,13 +1,12 @@
-import { TypeRecipes, TypeResponse } from "App/pages/Main/components/ListRecipes/type";
 import { apiClient } from "axiosConfig";
-import { action, computed, makeObservable, observable } from "mobx";
+import { action, computed, makeObservable, observable, runInAction } from "mobx";
  import { Meta } from "types";
 import { ParamsType } from "./type";
-import { MatchCalories, splitIngredients } from "utils/index";
+import { IRecipeApi, IRecipeModel, normalizeRecipe } from "store/models/recipe";
 
 type PrivateFields = "_list" | "_meta" | "_totalRes" | "_typesMeal"
 export default class ListRecipesStore {
-   private _list: TypeRecipes = []
+   private _list: IRecipeModel[] = []
    private _meta: Meta = Meta.instal
    private _totalRes: number = 0
    private _typesMeal: ({key: string, value: string})[] = []
@@ -26,7 +25,7 @@ export default class ListRecipesStore {
       })
    }
 
-   get list():  TypeRecipes { 
+   get list(): IRecipeModel[] { 
       return this._list;
    }
 
@@ -56,25 +55,26 @@ export default class ListRecipesStore {
       this._list = []
 
       const typesMeal = this._generateQueryTypesMeal()
-      const response = await apiClient.get<{ results: TypeResponse[], totalResults: number }>(`/recipes/complexSearch?${typesMeal ? typesMeal : ""}`, {params}) 
-      if(response.status < 300 && response.status >=200) {
-         this._meta = Meta.success
-         this._totalRes = response.data.totalResults
-         response.data.results
-         this._list= response.data.results.map(
-                    (elem: TypeResponse
-                    ) => ({
-                      id: elem.id,
-                      title: elem.title,
-                      image: elem.image,
-                      calories: MatchCalories(elem.summary) || "0",
-                      timeReady: `${elem.readyInMinutes} minutes`,
-                      ingredients: splitIngredients(elem.extendedIngredients),
-                    })
-                  );
-         return
-      }
+      const response = await apiClient.get<{ results: IRecipeApi[], totalResults: number }>(`/recipes/complexSearch?${typesMeal ? typesMeal : ""}`, {params}) 
 
-      this._meta = Meta.error
+      runInAction(() => {
+         try {
+            if(response.status < 300 && response.status >=200) {
+               this._meta = Meta.success
+               this._totalRes = response.data.totalResults
+               response.data.results
+               this._list= response.data.results.map(item => normalizeRecipe(item));
+               return
+            }
+            this._meta = Meta.error
+            
+         } catch (error) {
+            if(error instanceof Error){
+               console.log(error.message)
+            }
+            this._meta = Meta.error
+         }
+      })
+
    }        
 }
