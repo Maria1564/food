@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App/";
 
+import"./config/configureMobX"
 import "./styles/styles.scss";
 import UrlParamsProvider from "./App/provider";
 

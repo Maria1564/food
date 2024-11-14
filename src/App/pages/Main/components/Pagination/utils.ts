@@ -2,11 +2,9 @@ export const createPagination = (currentPage: number, totalRecipes: number, setP
     const countPage = Math.ceil(totalRecipes / 9);
   
     if(totalRecipes === 0) {
-      console.log("countPage", countPage)
       setPages(() => [])
       return 
     }else{
-      console.log("dd")
       if(countPage <= 5 ){
         setPages(()=>[])
         for(let i=1; i<=countPage; i++){

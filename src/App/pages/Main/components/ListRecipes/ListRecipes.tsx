@@ -41,7 +41,6 @@ const ListRecipes: React.FC= () => {
    
 
     
-    console.log(objContext?.queryParams)
   }, [objContext?.queryParams]);
 
   const redirectToCard = useCallback((idCard: number) => navigate(`${idCard}`), [navigate])

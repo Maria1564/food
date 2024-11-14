@@ -1,10 +1,11 @@
 import { TypeRecipes, TypeResponse } from "App/pages/Main/components/ListRecipes/type";
 import { apiClient } from "axiosConfig";
-import { makeAutoObservable } from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
  import { Meta } from "types";
 import { ParamsType } from "./type";
 import { MatchCalories, splitIngredients } from "utils/index";
 
+type PrivateFields = "_list" | "_meta" | "_totalRes" | "_typesMeal"
 export default class ListRecipesStore {
    private _list: TypeRecipes = []
    private _meta: Meta = Meta.instal
@@ -12,7 +13,17 @@ export default class ListRecipesStore {
    private _typesMeal: ({key: string, value: string})[] = []
    
    constructor() {
-      makeAutoObservable(this)
+      makeObservable<ListRecipesStore, PrivateFields>(this, {
+         _list: observable,
+         _meta: observable,
+         _totalRes: observable,
+         _typesMeal: observable,
+         list: computed,
+         meta: computed,
+         totalResult: computed,
+         _generateQueryTypesMeal: action,
+         getListAPI: action
+      })
    }
 
    get list():  TypeRecipes { 
@@ -20,7 +31,6 @@ export default class ListRecipesStore {
    }
 
    get meta(): Meta {
-      // console.log(this.list)
       return this._meta
    }
 
@@ -46,7 +56,6 @@ export default class ListRecipesStore {
       this._list = []
 
       const typesMeal = this._generateQueryTypesMeal()
-      console.log(params)
       const response = await apiClient.get<{ results: TypeResponse[], totalResults: number }>(`/recipes/complexSearch?${typesMeal ? typesMeal : ""}`, {params}) 
       if(response.status < 300 && response.status >=200) {
          this._meta = Meta.success
