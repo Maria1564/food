@@ -1,8 +1,10 @@
 import { apiClient } from "axiosConfig";
 import { action, computed, makeObservable, observable, runInAction } from "mobx";
- import { Meta } from "types";
-import { ParamsType } from "./type";
 import { IRecipeApi, IRecipeModel, normalizeRecipe } from "store/models/recipe";
+import { Meta } from "types";
+
+import { ParamsType } from "./type";
+
 
 type PrivateFields = "_list" | "_meta" | "_totalRes" | "_typesMeal"
 export default class ListRecipesStore {
@@ -62,7 +64,6 @@ export default class ListRecipesStore {
             if(response.status < 300 && response.status >=200) {
                this._meta = Meta.success
                this._totalRes = response.data.totalResults
-               response.data.results
                this._list= response.data.results.map(item => normalizeRecipe(item));
                return
             }

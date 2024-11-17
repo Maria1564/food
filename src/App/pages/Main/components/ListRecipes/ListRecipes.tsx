@@ -1,23 +1,23 @@
 import Button from "components/Button";
 import Card from "components/Card";
 import Loader from "components/Loader";
+import { observer } from "mobx-react-lite";
 import React, { useCallback, useContext, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { rootStore } from "store/RootStore";
+import { Meta } from "types";
 
 import s from "./ListRecipes.module.scss";
 import Pagination from "../Pagination";
 import TimeIcon from "./TimeIcon";
-import { observer } from "mobx-react-lite";
-import { rootStore } from "store/RootStore";
-import { Meta } from "types";
-import { ParamsContext } from "../../../../../App/provider/QueryContext";
 import { ParamsType } from "./type";
+import { ParamsContext } from "../../../../../App/provider/QueryContext";
 
 
 
 const ListRecipes: React.FC= () => {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const objContext = useContext(ParamsContext)
 
   useEffect(() => {

@@ -5,8 +5,8 @@ import { useSearchParams } from "react-router-dom";
 
 import s from "./Search.module.scss";
 import SearchIcon from "./SearchIcon";
-import { createNewParams } from "../../utils";
 import { ParamsContext } from "../../../../provider/QueryContext";
+import { createNewParams } from "../../utils";
 
 const Search: React.FC = () => {
   const [value, setValue] = useState("");

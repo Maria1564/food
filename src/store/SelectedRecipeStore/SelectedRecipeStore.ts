@@ -71,6 +71,7 @@ export default class SelectedRecipeStore {
           return;
         }
       } catch (error) {
+        console.log(error)
         this._meta = Meta.error;
         this._infoRecipe = {
           title: "",

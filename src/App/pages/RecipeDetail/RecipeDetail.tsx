@@ -1,16 +1,17 @@
+import Loader from "components/Loader";
 import Text from "components/Text/Text.tsx";
-import React, { useEffect, useRef, useState } from "react";
+import { observer } from "mobx-react-lite";
+import React, { useEffect, useRef } from "react";
 import ReactHtmlParser from "react-html-parser";
 import { useNavigate, useParams } from "react-router-dom";
-import { Meta } from "types";
 import { rootStore } from "store/RootStore";
-import Loader from "components/Loader";
+import { Meta } from "types";
 
 import About from "./About/About";
 import ArrowLeftIcon from "./ArrowLeftIcon";
 import PreparationList from "./PreparationList";
 import s from "./RecipeDetail.module.scss";
-import { observer } from "mobx-react-lite";
+
 
  const RecipeDetail: React.FC = () => {
   const { id } = useParams();

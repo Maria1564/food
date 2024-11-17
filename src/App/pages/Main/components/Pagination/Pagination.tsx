@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 import ArrowLeftIcon from "./ArrowLeftIcon";
 import ArrowRightIcon from "./ArrowRightIcon";

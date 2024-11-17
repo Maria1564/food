@@ -1,11 +1,11 @@
 import MultiDropdown from 'components/MultiDropdown'
 import React, { useCallback, useContext, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import { options } from './dataOptions'
 import s from "./FilterType.module.scss"
 import { OptionsType } from './types'
 import { getTitle } from './utils'
-import { useLocation, useSearchParams } from 'react-router-dom'
 import { ParamsContext } from '../../../../../App/provider/QueryContext'
 
 

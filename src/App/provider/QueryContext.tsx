@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from 'types';
 type ParamsContextType = {
@@ -11,7 +11,7 @@ type UrlParamsProviderProps = {
     children: React.ReactNode
 }
 const UrlParamsProvider: React.FC<UrlParamsProviderProps> = ({children}) => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const [queryParams, setQueryParams] = useState<{
         offset: number;
         page: number;
