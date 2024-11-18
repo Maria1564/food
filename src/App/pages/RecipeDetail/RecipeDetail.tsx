@@ -9,7 +9,7 @@ import ArrowLeftIcon from "./ArrowLeftIcon";
 import PreparationList from "./PreparationList";
 import s from "./RecipeDetail.module.scss";
 
-interface IAboutRecipes {
+type AboutRecipes = {
   title: string;
   totalMinutes: number;
   image: string;
@@ -21,7 +21,7 @@ interface IAboutRecipes {
   summary: string;
 }
 const RecipeDetail: React.FC = () => {
-  const [infoRecipes, setInfoRecipes] = useState<IAboutRecipes | null>(null);
+  const [infoRecipes, setInfoRecipes] = useState<AboutRecipes | null>(null);
   const { id } = useParams();
   const divRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();

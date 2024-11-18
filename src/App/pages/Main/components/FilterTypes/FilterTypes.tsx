@@ -1,7 +1,7 @@
 import MultiDropdown from 'components/MultiDropdown'
 import React, { useCallback } from 'react'
 
-import { options } from './dataOptions'
+import { OPTIONS } from './dataOptions'
 import s from "./FilterType.module.scss"
 import { OptionsType } from './types'
 import { getTitle } from './utils'
@@ -16,7 +16,7 @@ const FilterTypes: React.FC = () => {
 
   return (
     <>
-      <MultiDropdown className={s.filter} onChange={handlerChange}  getTitle={handlerGetTitle} options={options} value={[{key: "soup", value:"soup"}]}/>
+      <MultiDropdown className={s.filter} onChange={handlerChange}  getTitle={handlerGetTitle} options={OPTIONS} value={[{key: "soup", value:"soup"}]}/>
     </>
   )
 }

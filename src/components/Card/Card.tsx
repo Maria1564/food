@@ -24,16 +24,16 @@ export type CardProps = {
 const Card: React.FC<CardProps> = ({className, image, captionSlot, title, subtitle, contentSlot, onClick, actionSlot}) => {
    return (
     <div className={`card ${className}`} >
-        <div className="content second_content"  >
-            <img src={image} alt=""  width={360}/>
+        <div className="card__content second_content"  >
+            <img src={image} alt="" className="card__image" width={360}/>
         </div>
-        <div className="content">
-            {captionSlot && <Text tag='div' className='capt_slot' view='p-14' weight='medium' color='secondary'>{captionSlot}</Text>}
+        <div className="card__content">
+            {captionSlot && <Text tag='div' className='card__capt-slot' view='p-14' weight='medium' color='secondary'>{captionSlot}</Text>}
             <div className="" onClick={onClick}>
-            <Text view='p-20' weight='medium' maxLines={2} color='primary' className='card_title'>{title}</Text>
-             <Text className='subtitle' view='p-16' color='secondary' maxLines={3}>{subtitle}</Text>
+            <Text view='p-20' weight='medium' maxLines={2} color='primary' className='card__title'>{title}</Text>
+             <Text className='card__subtitle' view='p-16' color='secondary' maxLines={3}>{subtitle}</Text>
             </div>
-             <div className="other_info">
+             <div className="card__other-info">
                 {contentSlot && <Text tag='span' view='p-18' weight='bold'>{contentSlot}</Text>}
                 {actionSlot && actionSlot}
              </div>
