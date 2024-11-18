@@ -1,0 +1,15 @@
+@use "styles/variables" as v;
+
+.icon {
+    &__primary {
+        color: v.$black;
+    }
+
+    &__accent {
+        color: v.$brand;
+    }
+
+    &__secondary {
+        color: v.$secondary-color;
+    }
+}

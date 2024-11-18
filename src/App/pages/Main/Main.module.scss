@@ -1,0 +1,24 @@
+@use "styles/variables" as v;
+
+.main{
+
+    &__wrapper {
+    
+        &-bg{
+            width: 100%;
+            object-fit: cover;
+        }
+    
+    }
+    
+    &__container {
+        padding-top: 36px;
+        padding-bottom: 28px;
+        text-align: center;
+    
+        &_underline {
+            display: inline;
+            text-decoration: underline;
+        }
+    }
+}

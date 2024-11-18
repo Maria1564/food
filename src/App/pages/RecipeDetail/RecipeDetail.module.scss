@@ -1,0 +1,71 @@
+@use "styles/variables" as v;
+@use "styles/mixins" as m;
+
+.recipe {
+  &__wrapper {
+    position: relative;
+    overflow: hidden;
+
+    &:after {
+      content: url("./assets/Pattern.svg");
+      position: absolute;
+      top: -48px;
+      right: -20px;
+    }
+  }
+
+  &__general {
+    display: flex;
+    gap: 100px;
+    flex-wrap: wrap;
+    text-align: center;
+
+    &-text {
+      color: v.$brand;
+    }
+  }
+
+  &__back {
+    margin-top: 49px;
+    margin-bottom: 37px;
+    @include m.align-items-center;
+    gap: v.$space-m;
+
+    & > img {
+      cursor: pointer;
+    }
+  }
+
+  &__summary {
+    width: 100%;
+    border-radius: v.$border-radius;
+    background-color: v.$background-brand;
+    padding: 36px;
+    margin: 48px 0;
+  }
+
+  &__details {
+    @include m.align-items-center;
+    align-items: start;
+    gap: 37px;
+    padding-bottom: 57px;
+  }
+
+  &__directions {
+    max-width: 737px;
+    padding-bottom: 53px;
+
+    &-title {
+      margin-bottom: 24px;
+    }
+  }
+  &__step {
+    &:not(:last-child) {
+      padding-bottom: v.$space-m;
+    }
+
+    &-title {
+      margin-bottom: 8px;
+    }
+  }
+}

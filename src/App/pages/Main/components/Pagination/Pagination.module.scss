@@ -1,0 +1,42 @@
+@use "styles/variables" as v;
+@use "styles/mixins" as m;
+
+.pagination {
+
+    &__wrapper{
+        @include m.align-items-center;
+        justify-content: center;
+        margin-top: 48px;
+    }
+
+    &__arrow-left,
+    &__arrow-right {
+        cursor: pointer;
+    }
+    
+    &__arrow-left {
+        margin-right: 15px;
+    }
+    
+    &__arrow-right {
+        margin-left: 15px;
+    }
+
+    &__page {
+        width: 38px;
+        height: 42px;
+        @include m.align-items-center;
+        flex-direction: column;
+        justify-content: center;
+
+        &-num {
+            cursor: pointer;
+        }
+
+        &_active {
+
+            background-color: v.$brand;
+            color: v.$white;
+        }
+    }
+}

@@ -1,0 +1,16 @@
+@use "styles/variables" as v;
+@use "styles/mixins" as m;
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 64px  80px;
+    margin-top: 48px;
+    &__item{
+      
+        &-caption {
+            @include m.align-items-center;
+            gap: 8px;
+        }
+    }
+}
