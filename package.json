@@ -13,6 +13,7 @@
     "@types/react-html-parser": "^2.0.6",
     "@types/webpack-dev-server": "^4.7.2",
     "axios": "^1.7.7",
+    "buffer": "^6.0.3",
     "classnames": "^2.5.1",
     "mobx": "^6.13.5",
     "mobx-react-lite": "^4.0.7",

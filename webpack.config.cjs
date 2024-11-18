@@ -1,4 +1,5 @@
 const ReactRefreshPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const { default: axios } = require("axios");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -6,13 +7,16 @@ const path = require("path");
 
 const buildPath = path.resolve(__dirname, "dist");
 const isDev = process.env.NODE_ENV === "development";
+const srcPath =  path.join(__dirname, "src")
 
 module.exports = {
-  entry: path.join(__dirname, "./src/main.tsx"),
   target: isDev ? "web" : "browserslist",
+  entry: './src/main.tsx',
   output: {
-    path: buildPath,
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+    clean: true,
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -55,7 +59,19 @@ module.exports = {
                 maxSize: 10 * 1024
             }
         }
-      }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+            {
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[hash].[ext]',
+                    outputPath: 'fonts/',
+                },
+            },
+        ],
+    },
     ],
   },
   
@@ -69,7 +85,18 @@ module.exports = {
     isDev && new ReactRefreshPlugin(),
     new ForkTsCheckerWebpackPlugin()
   ].filter(Boolean),
-
+  resolve: {
+    extensions: ['.tsx', '.jsx', '.js', '.ts'],
+    alias: {
+      components: path.join(srcPath, "components"),
+      layout: path.join(srcPath, "layout"),
+      store: path.join(srcPath, "store"),
+      axiosConfig: path.join(srcPath, "axiosConfig"),
+      utils: path.join(srcPath, "utils"),
+      types: path.join(srcPath, "types"),
+      styles: path.join(srcPath, "styles")
+    }
+  },
   devServer: {
     host: "127.0.0.1",
     port: 9000,
