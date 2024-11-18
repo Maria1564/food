@@ -8,6 +8,7 @@ import ListRecipes from "./components/ListRecipes";
 import Search from "./components/Search";
 import s from "./Main.module.scss";
 
+
 const Main: React.FC = () => {
 
   return (

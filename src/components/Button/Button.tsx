@@ -23,7 +23,7 @@ const Button: React.FC<ButtonProps> = ({ loading, children, ...other }) => {
       })}
       disabled={other.disabled || loading}
     >
-      {loading && <Loader className="loader" size="s" />}
+      {loading && <Loader className="button__loader" size="s" />}
       {children}
     </button>
   );
