@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
           </NavLink>
         </nav>
         <div className={s.profile_actions}>
-          <Link to="/">
+          <Link to="/favorites">
             <img src={favoriteIcon} alt="favorites" width={17} height={17} />
           </Link>
           <Link to="/">
