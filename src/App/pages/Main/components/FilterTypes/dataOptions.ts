@@ -1,6 +1,6 @@
 import { OptionsType } from "./types";
 
-export const options: OptionsType = [
+export const OPTIONS: OptionsType = [
   { key: "main course", value: "main course" },
   { key: "side dish", value: "side dish" },
   { key: "salad", value: "salad" },

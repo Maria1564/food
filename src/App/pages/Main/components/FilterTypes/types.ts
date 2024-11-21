@@ -1,6 +1,6 @@
-export interface IOption {
+export type Option = {
     key: string,
     value: string
 }
 
-export type OptionsType = IOption[]
+export type OptionsType = Option[]

@@ -18,13 +18,18 @@ const Search: React.FC = () => {
     const currentPage = searchParams.get("page");
     const offset = (Number(currentPage) - 1) * 9;
     objContext?.handlerQueryParams(offset, Number(currentPage), value);
-  }, [value, searchParams, setSearchParams]);
+  }, [setSearchParams, searchParams, value, objContext]);
 
+
+  const handleChange = useCallback((val: string)=>{
+    setValue(val)
+  }, [])
+  
   return (
     <div className={s.search__wrapper}>
       <Input
         value={value}
-        onChange={val => setValue(val)}
+        onChange={handleChange}
         placeholder="Enter dishes"
         className={s.search__input}
       />

@@ -2,7 +2,7 @@ import MultiDropdown from 'components/MultiDropdown'
 import React, { useCallback, useContext, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { options } from './dataOptions'
+import { OPTIONS } from './dataOptions'
 import s from "./FilterType.module.scss"
 import { OptionsType } from './types'
 import { getTitle } from './utils'
@@ -50,11 +50,11 @@ const FilterTypes: React.FC = () => {
       return params;
   });
 
-  }, [])
+  }, [objContext, searchParams, setSearchParams])
   
   return (
     <>
-      <MultiDropdown className={s.filter} onChange={handlerChange}  getTitle={handlerGetTitle} options={options} value={arrOptions ? JSON.parse(arrOptions) : []}/>
+      <MultiDropdown className={s.filter} onChange={handlerChange}  getTitle={handlerGetTitle} options={OPTIONS} value={arrOptions ? JSON.parse(arrOptions) : []}/>
     </>
   )
 }

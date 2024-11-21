@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Text from "components/Text";
-import { NavigationPath } from "layout/Navbar/types";
+import { NAV_LINKS } from "layout/Navbar/config";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
@@ -29,21 +29,11 @@ const Navbar: React.FC = () => {
           </Text>
         </Link>
         <nav className={s.nav}>
-          <NavLink to={NavigationPath.RECIPES} className={isActive}>
-            Recipes
-          </NavLink>
-          <NavLink to={NavigationPath.INGREDIENTS} className={isActive}>
-            Ingredients
-          </NavLink>
-          <NavLink to={NavigationPath.PRODUCTS} className={isActive}>
-            Products
-          </NavLink>
-          <NavLink to={NavigationPath.MENU} className={isActive}>
-            Menu Items
-          </NavLink>
-          <NavLink to={NavigationPath.PLAN} className={isActive}>
-            Meal Planning
-          </NavLink>
+        {
+            NAV_LINKS.map(({url, title}) => <NavLink to={url} className={isActive}>
+            {title}
+          </NavLink>)
+          }
         </nav>
         <div className={s.profile_actions}>
           <Link to="/favorites">

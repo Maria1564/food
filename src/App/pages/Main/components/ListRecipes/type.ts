@@ -1,4 +1,4 @@
-export interface IRecipe {
+export type Recipe = {
   id: number;
   calories: string;
   image: string;
@@ -7,13 +7,13 @@ export interface IRecipe {
   title: string;
 }
 
-export type TypeRecipes = IRecipe[];
+export type TypeRecipes = Recipe[];
 
-export interface Iingredient {
+export type Ingredient = {
     name: string
 }
 
-export type TypeIngredients = Iingredient[]
+export type TypeIngredients = Ingredient[]
 
 export type TypeResponse = {
     id: number;
@@ -21,7 +21,7 @@ export type TypeResponse = {
     image: string;
     summary: string;
     readyInMinutes: number;
-    extendedIngredients: Iingredient[]
+    extendedIngredients: Ingredient[]
 }
 
 export type ParamsType = {

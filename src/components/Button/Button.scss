@@ -14,9 +14,10 @@ button {
     height: max-content;
 }
 
-.loader > path {
-    fill: v.$white;
+.button__loader{
+    color: white;
 }
+
 
 .btn-disable {
     background-color: v.$button-primary-bg-disabled;
