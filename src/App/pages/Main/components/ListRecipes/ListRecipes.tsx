@@ -2,8 +2,9 @@ import Button from "components/Button";
 import Card from "components/Card";
 import Loader from "components/Loader";
 import { observer } from "mobx-react-lite";
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { IRecipeModel } from "store/models/recipe/listRecipes";
 import { rootStore } from "store/RootStore";
 import { Meta } from "types";
 
@@ -19,6 +20,14 @@ const ListRecipes: React.FC= () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const objContext = useContext(ParamsContext)
+  const [listFavorites, setListFavorites] = useState<IRecipeModel[]>([])
+  
+  useEffect(()=>{
+    const list = localStorage.getItem("listFavoritesRecipes")
+    if(list) {
+      setListFavorites(JSON.parse(list))
+    }
+  }, [])
 
   useEffect(() => {
     if(objContext?.queryParams){
@@ -43,6 +52,18 @@ const ListRecipes: React.FC= () => {
 
   const redirectToCard = useCallback((idCard: number) => navigate(`${idCard}`), [navigate])
 
+  const addInFavorite = useCallback((item: IRecipeModel)=>{
+    const listFavorites = localStorage.getItem("listFavoritesRecipes");
+    
+    const favoritesArray = listFavorites ? JSON.parse(listFavorites) : [];
+    
+    favoritesArray.push(item);
+    localStorage.setItem("listFavoritesRecipes", JSON.stringify(favoritesArray));
+
+    setListFavorites((prev)=> ([...prev, item]))
+
+  }, [])
+
   return (
     <>
      {rootStore.listRecipes.meta === Meta.success ? <div className={s.list}>
@@ -57,7 +78,7 @@ const ListRecipes: React.FC= () => {
             subtitle={item.ingredients}
             contentSlot={`${item.calories} kcal`}
             actionSlot={
-              <Button onClick={() => console.log("Click button")}>Save</Button>
+              <Button onClick={addInFavorite.bind(null, item)} disabled={listFavorites.some(elem => elem.id === item.id )}>Save</Button>
             }
           />
         ))}

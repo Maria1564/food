@@ -25,3 +25,5 @@ export const NAV_LINKS: link[] = [
         url: NavigationPath.PLAN
     },
 ]  
+
+export { NavigationPath };

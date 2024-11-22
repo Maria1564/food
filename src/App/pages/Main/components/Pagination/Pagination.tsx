@@ -33,11 +33,16 @@ const Pagination: React.FC<PaginationProps> = ({
   );
 
   useEffect(() => {
-    setPage(Number(searchParams.get("page")) || 1);
-    if (searchParams.get("page") === null) {
-      createNewQuery("page", "1");
-    }
-  }, [searchParams, createNewQuery]);
+    setPage(prev => {
+      prev = Number(objContext?.queryParams.page) || 1
+      console.log(prev)
+      return prev
+      });
+
+      console.log(page)
+      console.log("ff")
+      createNewQuery("page", String(page));
+  }, [searchParams, createNewQuery, objContext?.queryParams.page, page]);
 
   useEffect(() => {
     createPagination(page, totalRecipes, setPages);
