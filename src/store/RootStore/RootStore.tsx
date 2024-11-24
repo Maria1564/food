@@ -1,7 +1,7 @@
-import {ListRecipesStore} from "store/ListRecipesStore";
+import {QueryParamsStore} from "store/QueryParamsStore";
 import { SelectedRecipeStore } from "store/SelectedRecipeStore";
 
 export default class RootStore {
-    readonly listRecipes = new ListRecipesStore()
+    readonly queryParams = new QueryParamsStore()
     readonly selectedRecipe = new SelectedRecipeStore()
 } 

@@ -2,12 +2,13 @@ import { apiClient } from "axiosConfig";
 import { action, computed, makeObservable, observable, runInAction } from "mobx";
 import { IRecipeApi, IRecipeModel, normalizeRecipe } from "store/models/recipe";
 import { Meta } from "types";
+import { ILocalStore } from "utils/useLocalStore";
 
 import { ParamsType } from "./type";
 
 
 type PrivateFields = "_list" | "_meta" | "_totalRes" | "_typesMeal"
-export default class ListRecipesStore {
+export default class ListRecipesStore implements ILocalStore {
    private _list: IRecipeModel[] = []
    private _meta: Meta = Meta.instal
    private _totalRes: number = 0
@@ -23,7 +24,8 @@ export default class ListRecipesStore {
          meta: computed,
          totalResult: computed,
          _generateQueryTypesMeal: action,
-         getListAPI: action
+         getListAPI: action,
+         destroy: action
       })
    }
 
@@ -77,5 +79,7 @@ export default class ListRecipesStore {
          }
       })
 
-   }        
+   }  
+   
+   destroy = () => {};
 }

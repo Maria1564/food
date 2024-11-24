@@ -4,21 +4,25 @@ import Loader from "components/Loader";
 import { observer } from "mobx-react-lite";
 import React, { useCallback, useContext, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { rootStore } from "store/RootStore";
+import { ListRecipesStore } from "store/ListRecipesStore";
+import { ParamsType } from "store/ListRecipesStore/type";
 import { Meta } from "types";
+import { useLocalStore } from "utils/useLocalStore";
 
 import s from "./ListRecipes.module.scss";
 import Pagination from "../Pagination";
 import TimeIcon from "./TimeIcon";
-import { ParamsType } from "./type";
 import { ParamsContext } from "../../../../../App/provider/QueryContext";
-
+import { useListRecipes } from "../../context";
 
 
 const ListRecipes: React.FC= () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const objContext = useContext(ParamsContext)
+  const localStoreList = useLocalStore(()=>new ListRecipesStore())
+  const context = useListRecipes()
+  
 
   useEffect(() => {
     if(objContext?.queryParams){
@@ -33,20 +37,31 @@ const ListRecipes: React.FC= () => {
         if (query !== null) {
             params.query = query;
         }
-
-      rootStore.listRecipes.getListAPI(params)
+        localStoreList.getListAPI(params)
     }
    
 
     
-  }, [objContext?.queryParams]);
+  }, [localStoreList, objContext?.queryParams, searchParams]);
+
+  
+  useEffect(()=>{
+    if(localStoreList.meta === Meta.success && context !== null){
+      context.handlerSetList(localStoreList.list)
+    }
+  }, [context, localStoreList.list, localStoreList.meta])
 
   const redirectToCard = useCallback((idCard: number) => navigate(`${idCard}`), [navigate])
+  
+  if (localStoreList.meta === Meta.loading) {
+      return <Loader />
+  }
+
 
   return (
     <>
-     {rootStore.listRecipes.meta === Meta.success ? <div className={s.list}>
-        {rootStore.listRecipes.meta=== Meta.success && rootStore.listRecipes.list.map((item) => (
+     <div className={s.list}>
+        {localStoreList.meta=== Meta.success && localStoreList.list.map((item) => (
           <Card
             className={s.list__item}
             onClick={redirectToCard.bind(null, item.id)}
@@ -61,9 +76,9 @@ const ListRecipes: React.FC= () => {
             }
           />
         ))}
-      </div> : <Loader/>}
-      <Pagination  totalRecipes={rootStore.listRecipes.totalResult}/>
-    </>
+      </div>
+      <Pagination  totalRecipes={localStoreList.totalResult}/>
+    </>    
   );
 };
 

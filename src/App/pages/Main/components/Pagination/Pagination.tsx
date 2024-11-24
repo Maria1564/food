@@ -1,12 +1,16 @@
 import classNames from "classnames";
+import { observer } from "mobx-react-lite";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { PageStore } from "store/PageStore";
+import { useLocalStore } from "utils/useLocalStore";
 
 import ArrowLeftIcon from "./ArrowLeftIcon";
 import ArrowRightIcon from "./ArrowRightIcon";
 import s from "./Pagination.module.scss";
 import { createPagination } from "./utils";
-import { ParamsContext } from "../../../../.././App/provider/QueryContext";
+import { ParamsContext } from "../../../../provider/QueryContext";
+
 
 type PaginationProps = {
   totalRecipes: number;
@@ -17,27 +21,32 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [pages, setPages] = useState<(string | number)[]>([]);
-  const [page, setPage] = useState<number>(Number(searchParams.get("page")));
+  const [page] = useState<number>(Number(searchParams.get("page")));
+  const localPage = useLocalStore(() => new PageStore())
   const objContext = useContext(ParamsContext)
 
-  const createNewQuery = useCallback(
-    (key: string, page: string) => {
-      setSearchParams((prev) => {
-        const params = new URLSearchParams(prev);
-        // console.log(params)
-        params.set(key, page);
-        return params;
-      });
-    },
-    [setSearchParams]
-  );
+  // const objContext = useContext(ParamsContext)
+
+  // const createNewQuery = useCallback(
+  //   (key: string, page: string) => {
+  //     setSearchParams((prev) => {
+  //       const params = new URLSearchParams(prev);
+  //       // console.log(params)
+  //       params.set(key, page);
+  //       return params;
+  //     });
+  //   },
+  //   [setSearchParams]
+  // );
 
   useEffect(() => {
-    setPage(Number(searchParams.get("page")) || 1);
     if (searchParams.get("page") === null) {
-      createNewQuery("page", "1");
+      setSearchParams(() => {
+        return localPage.setPage("1")
+      })
     }
-  }, [searchParams, createNewQuery]);
+    
+  }, [localPage, searchParams, setSearchParams]);
 
   useEffect(() => {
     createPagination(page, totalRecipes, setPages);
@@ -49,25 +58,37 @@ const Pagination: React.FC<PaginationProps> = ({
         return;
       }
       const offset = (Number(currentPage) - 1) * 9;
+      setSearchParams(() => {
+        return localPage.setPage(String(currentPage))
+      },)
       const query = searchParams.get("query") || ""
-      console.log("q", query)
-      createNewQuery("page", String(currentPage));
       objContext?.handlerQueryParams(offset, Number(currentPage), query );
-    },
-    [page, createNewQuery, objContext?.handlerQueryParams]
-  );
+      },[localPage, objContext, page, searchParams, setSearchParams])
+  
 
   const togglePrevArrow = useCallback(() => {
-    createNewQuery("page", String(Number(page) - 1));
+    
+    const currentPage = Number(page) - 1
+    const offset = (Number(currentPage) - 1) * 9; 
+    setSearchParams(() => {
+      return localPage.setPage(String(currentPage))
+    })
     const query = searchParams.get("query") || ""
-    objContext?.handlerQueryParams( (Number(page) - 2) * 9, Number(page) - 1,  query );
-  }, [createNewQuery, page, objContext?.handlerQueryParams]);
+    objContext?.handlerQueryParams(offset, currentPage, query );
+
+  }, [localPage, objContext, page, searchParams, setSearchParams]);
+
+  
+
 
   const toggleNextArrow = useCallback(() => {
-    createNewQuery("page", String(Number(page) + 1));
+    const currentPage = Number(page) + 1
+    setSearchParams(() => {
+      return localPage.setPage(String(currentPage))
+    })
     const query = searchParams.get("query") || ""
     objContext?.handlerQueryParams( Number(page) * 9, Number(page) + 1, query );
-  }, [createNewQuery, objContext?.handlerQueryParams, page]);
+  }, [localPage, objContext, page, searchParams, setSearchParams]);
   
   if(totalRecipes === 0) {
     return <></>
@@ -127,4 +148,4 @@ const Pagination: React.FC<PaginationProps> = ({
   );
 };
 
-export default Pagination;
+export default observer(Pagination) ;
