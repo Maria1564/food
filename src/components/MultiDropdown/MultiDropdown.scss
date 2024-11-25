@@ -2,6 +2,7 @@
 
 .wrapper {
     width: max-content;
+    position: relative;
 }
 .wrapper_items {
     background-color: v.$white;
@@ -9,6 +10,7 @@
     width: 335px;
     margin-top: v.$space-xxs;
     border-radius: v.$border_radius;
+    position: absolute;
 }
 
 .item {
@@ -16,7 +18,12 @@
     font-weight: 400;
     font-size: v.$p-16;
     line-height: 20px;
+
+    &_select {
+        color: v.$brand;
+    }
 }
+
 
 .item:hover {
     color: v.$secondary-color;

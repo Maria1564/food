@@ -33,7 +33,7 @@ const Card: React.FC<CardProps> = ({className, image, captionSlot, title, subtit
             <Text view='p-20' weight='medium' maxLines={2} color='primary' className='card__title'>{title}</Text>
              <Text className='card__subtitle' view='p-16' color='secondary' maxLines={3}>{subtitle}</Text>
             </div>
-             <div className="card__other-info">
+            <div className="card__other-info">
                 {contentSlot && <Text tag='span' view='p-18' weight='bold'>{contentSlot}</Text>}
                 {actionSlot && actionSlot}
              </div>

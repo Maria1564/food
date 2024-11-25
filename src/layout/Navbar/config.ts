@@ -1,10 +1,8 @@
 import { NavigationPath } from "layout/Navbar/types";
-
 type link = {
     title: string
     url: string,
 }
-
 export const NAV_LINKS: link[] = [
     {
         title: "Recipes",
@@ -26,4 +24,4 @@ export const NAV_LINKS: link[] = [
         title: 'Meal Planning',
         url: NavigationPath.PLAN
     },
-]   
+]  

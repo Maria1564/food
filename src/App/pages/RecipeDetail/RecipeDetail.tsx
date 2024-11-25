@@ -1,90 +1,62 @@
-import { apiClient } from "axiosConfig";
+import Loader from "components/Loader";
 import Text from "components/Text/Text.tsx";
-import React, { useEffect, useRef, useState } from "react";
+import { observer } from "mobx-react-lite";
+import React, { useEffect, useRef } from "react";
 import ReactHtmlParser from "react-html-parser";
 import { useNavigate, useParams } from "react-router-dom";
+import { rootStore } from "store/RootStore";
+import { Meta } from "types";
 
 import About from "./About/About";
 import ArrowLeftIcon from "./ArrowLeftIcon";
 import PreparationList from "./PreparationList";
 import s from "./RecipeDetail.module.scss";
 
-type AboutRecipes = {
-  title: string;
-  totalMinutes: number;
-  image: string;
-  ratings: number;
-  servings: number;
-  ingredients: string[];
-  equipment?: string[];
-  steps: string[];
-  summary: string;
-}
-const RecipeDetail: React.FC = () => {
-  const [infoRecipes, setInfoRecipes] = useState<AboutRecipes | null>(null);
+
+ const RecipeDetail: React.FC = () => {
   const { id } = useParams();
   const divRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-    apiClient.get(`/recipes/${id}/information`).then(({ data }) => {
-      const arrIngredients = data.extendedIngredients.map(
-        (elem: { original: string }) => elem.original
-      );
-
-      const arrEquipments = data.analyzedInstructions[0]
-        ? data.analyzedInstructions[0].steps.map(
-            (elem: { equipment: { localizedName: string }[] }) =>
-              elem.equipment.length &&
-              elem.equipment.map((item) => item.localizedName)[0]
-          )
-        : [];
-
-      const sortedArrEquipments = arrEquipments.filter(
-        (num: number) => num !== 0
-      );
-      const arrSteps = data.analyzedInstructions[0]
-        ? data.analyzedInstructions[0].steps.map(
-            (elem: { step: string }) => elem.step
-          )
-        : [];
-
-      setInfoRecipes({
-        title: data.title,
-        image: data.image,
-        totalMinutes: data.readyInMinutes,
-        ratings: data.aggregateLikes,
-        servings: data.servings,
-        ingredients: arrIngredients,
-        equipment: sortedArrEquipments,
-        steps: arrSteps,
-        summary: data.summary,
-      });
-    });
+    if(id){
+      rootStore.selectedRecipe.getInfoRecipe(id)
+    }
   }, [id]);
 
+  
+  if(rootStore.selectedRecipe.meta === Meta.loading){
+    return <Loader/>
+  }
+
+  if(rootStore.selectedRecipe.meta === Meta.error){
+    return <h1>Error</h1>
+  }
   return (
-    <div className={s.recipe__wrapper}>
+    <>
+      {
+        rootStore.selectedRecipe.meta === Meta.success &&
+        <div className={s.recipe__wrapper}>
       <div className="container">
         <div className={s.recipe__back} onClick={() => navigate(-1)}>
-          <ArrowLeftIcon color="accent" width={32} height={32}/>
+          <ArrowLeftIcon color="accent" width={32} height={32} className={s['recipe__arrow-icon']}/>
           <Text tag="h1" view="title" className={s.recipe__title}>
-            {infoRecipes?.title}
+            {rootStore.selectedRecipe.infoRecipe.title}
           </Text>
         </div>
         <About
-          image={infoRecipes?.image}
-          ratings={infoRecipes?.ratings}
-          totalMinutes={infoRecipes?.totalMinutes}
-          servings={infoRecipes?.servings}
+          image={rootStore.selectedRecipe.infoRecipe.image}
+          ratings={rootStore.selectedRecipe.infoRecipe.ratings}
+          totalMinutes={rootStore.selectedRecipe.infoRecipe.totalMinutes}
+          servings={rootStore.selectedRecipe.infoRecipe.servings}
         />
         <div ref={divRef} className={s.recipe__summary}>
-          {ReactHtmlParser(infoRecipes?.summary || "")}
+          {ReactHtmlParser(rootStore.selectedRecipe.infoRecipe.summary || "")}
         </div>
         <div className={s.recipe__details}>
           <PreparationList
-            ingredients={infoRecipes?.ingredients || []}
-            equipment={infoRecipes?.equipment || []}
+            ingredients={rootStore.selectedRecipe.infoRecipe.ingredients || []}
+            equipment={rootStore.selectedRecipe.infoRecipe.equipment || []}
           />
         </div>
         <div className={s.recipe__directions}>
@@ -96,7 +68,7 @@ const RecipeDetail: React.FC = () => {
           >
             Directions
           </Text>
-          {infoRecipes?.steps.map((item, index) => (
+          {rootStore.selectedRecipe.infoRecipe.steps.map((item, index) => (
             <div className={s.recipe__step} key={index}>
               <Text
                 tag="h4"
@@ -115,7 +87,10 @@ const RecipeDetail: React.FC = () => {
         </div>
       </div>
     </div>
+      }
+    </>
   );
 };
 
-export default RecipeDetail;
+
+export default observer(RecipeDetail) 

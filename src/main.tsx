@@ -4,12 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App/";
 
+import"./config/configureMobX"
 import "./styles/styles.scss";
 
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
+
   <BrowserRouter>
-    <App />
+      <App />
   </BrowserRouter>
   /* </StrictMode>, */
 );

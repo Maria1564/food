@@ -3,5 +3,6 @@ export enum NavigationPath {
     INGREDIENTS = '/ingredients',
     PRODUCTS = '/products',
     MENU = '/menu',
-    PLAN = '/plan'
+    PLAN = '/plan',
+    FAVORITE = '/favorites',
 }

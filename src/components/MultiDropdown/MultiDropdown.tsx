@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import ArrowDownIcon from 'components/icons/ArrowDownIcon';
 import Input from 'components/Input';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import "./MultiDropdown.scss"
 
 export type Option = {
@@ -29,94 +29,77 @@ export type MultiDropdownProps = {
 const MultiDropdown: React.FC<MultiDropdownProps> = ({className:cn, value, options,  onChange, getTitle, disabled}) => {
   const [openModal, setOpenModal] = useState(false);
   const [inpValue, setInpValue] = useState<string>('');
-  const [currentArr, setCurrentArr] = useState<string[]>([])
-  const [currentValue, setCurrentValue] = useState("")
-  const [filteredArr, setFilteredArr] = useState<Option[]>([])
+  const [filteredOptions, setFilteredOptions] = useState<Option[]>([])
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-
+// 
   
-  const placeholder = getTitle(value);
-  useEffect(() => {
-    const opt = options.map(item => item.key)
-    if(opt.join(",").includes(getTitle(value))){
-      setInpValue(getTitle(value))
-      setCurrentValue(getTitle(value))
-    }else{
-      setInpValue("")
-      setCurrentValue("")
-    }
-    
-    const handleClickOutside = (event: MouseEvent) => {
-      
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    const closeModal = useCallback((event: MouseEvent)=>{
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as HTMLElement)) {
         setOpenModal(false);
-        setInpValue(placeholder);
-        setCurrentValue(placeholder)
       }
-    };
-    
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [placeholder]);
+    }, [])
+
+    window.addEventListener("click", closeModal)
   
-  const handleToggleModal = () => {
-    if (!openModal) {
-      setCurrentArr(inpValue.split(", "))
-      setInpValue('');
-      setCurrentValue("")
-      setOpenModal(prev => !prev);
-    }
-  };
+    const placeholder = getTitle(value)
+    useEffect(()=>{
+      if(!openModal){
+        setInpValue(placeholder)
+      }else{
+        setInpValue("")
+        setFilteredOptions(options)
+      }
 
-  const handleOptionClick = (option: Option) => {
-    const isSelected = value.some(v => v.key === option.key);
-    const newValue = isSelected
-      ? value.filter(v => v.key !== option.key)
-      : [...value, option]; 
-
-      onChange(newValue);
-      const arr = newValue.map(item => item.value)
-      setCurrentArr(() => [...arr])
-    setInpValue(getTitle(newValue)); 
+    }, [openModal, placeholder, options])
     
-  };
 
-  const handlerChange = (val: string) => {
-    setCurrentValue(val)
-    const res = options.filter(item => item.value.includes(val))
-    setFilteredArr(res)
-  }
+    const handlerClickInput = useCallback(()=>{
+      if(openModal === false){
+        setOpenModal(true)
+      }
+    },[openModal])
+
+    const handlerChange = useCallback((str: string) => {
+      setInpValue(str)
+      setFilteredOptions(options.filter(item=>item.value.includes(str) ))
+      if(str.trim() === ""){
+        console.log(options)
+        setFilteredOptions(options)
+      }
+      
+    }, [options])
+
+    const handlerSelectOption = (option: Option)=>{
+        const isSelected = value.some(v => v.key === option.key);
+      const newValue = isSelected
+        ? value.filter(v => v.key !== option.key)
+        : [...value, option]; 
+        console.log(newValue, value)
+
+        onChange(newValue)
+    }
+  
   return (
-    <div ref={dropdownRef} className={classNames("wrapper", cn)} >
+   
+    <div ref={dropdownRef}  className={classNames("wrapper", cn)} >
       <Input 
      
-        value={currentValue} 
-        onChange={(val) => handlerChange(val)} 
+        value={inpValue} 
+        onChange={handlerChange} 
         afterSlot={<ArrowDownIcon />}  
-        onClick={handleToggleModal} 
-        placeholder={placeholder} 
+        onClick={handlerClickInput} 
+        placeholder={placeholder || "Text"} 
+        disabled={disabled}
       />
-      {(openModal && disabled !== true) ? filteredArr.length === 0 && currentValue === "" ? ( 
         <div className='wrapper_items'> 
-          {options.map(item => (
-            
-            <div className='item' key={item.key}  style={{color:( currentArr.includes(item.value) && "#B5460F")as string}} onClick={() => handleOptionClick(item)}>
-              {item.value}
-            </div>
-          ))}
+      {
+       ( openModal && !disabled) && filteredOptions.map(elem =>(
+          <div className={classNames('item', {"item_select": placeholder.includes(elem.value)})} key={elem.key}  onClick={() => handlerSelectOption(elem)}>
+             {elem.value}
+             </div>
+        ))
+      }
         </div>
-      ):(
-        <div className="wrapper_items">
-          
-          {filteredArr.map((item, ) =>(
-           <div className='item' key={item.key} style={{color:( currentArr.includes(item.value) && "#B5460F")as string}} onClick={() => handleOptionClick(item)}>
-           {item.value}
-         </div>
-          ))}
-        </div>
-      ): <></>}
     </div>
   );
 

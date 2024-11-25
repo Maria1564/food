@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Text from "components/Text";
+import { NAV_LINKS } from "layout/Navbar/config";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
@@ -7,7 +8,6 @@ import favoriteIcon from "./assets/favorite_icon.svg";
 import logo from "./assets/logo.svg";
 import profileIcon from "./assets/profile_icon.svg";
 import s from "./Navbar.module.scss";
-import { NAV_LINKS } from "./config";
 
 type TypeIsActiveFunc = ({ isActive }: { isActive: boolean }) => string;
 const isActive: TypeIsActiveFunc = ({ isActive }) =>
@@ -29,14 +29,14 @@ const Navbar: React.FC = () => {
           </Text>
         </Link>
         <nav className={s.nav}>
-          {
+        {
             NAV_LINKS.map(({url, title}) => <NavLink to={url} className={isActive}>
             {title}
           </NavLink>)
           }
         </nav>
         <div className={s.profile_actions}>
-          <Link to="/">
+          <Link to="/favorites">
             <img src={favoriteIcon} alt="favorites" width={17} height={17} />
           </Link>
           <Link to="/">
