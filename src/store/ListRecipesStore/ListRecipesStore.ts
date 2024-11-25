@@ -23,7 +23,6 @@ export default class ListRecipesStore implements ILocalStore {
          list: computed,
          meta: computed,
          totalResult: computed,
-         _generateQueryTypesMeal: action,
          getListAPI: action,
          destroy: action
       })
@@ -41,25 +40,12 @@ export default class ListRecipesStore implements ILocalStore {
       return this._totalRes
    }
 
-   _generateQueryTypesMeal = () => {
-      const storedValue = localStorage.getItem("selectOptions");
-      this._typesMeal = storedValue !== null ? JSON.parse(storedValue) : [];
-
-      if(this._typesMeal.length === 0) return
-
-      const reult = this._typesMeal.reduce((acc: string, item) => {
-         return acc +=`type=${item.value}&`
-      }, "")
-
-      return reult.slice(0, -1)
-   }
-
    getListAPI = async(params: ParamsType): Promise<void> => {
       this._meta = Meta.loading
       this._list = []
 
-      const typesMeal = this._generateQueryTypesMeal()
-      const response = await apiClient.get<{ results: IRecipeApi[], totalResults: number }>(`/recipes/complexSearch?${typesMeal ? typesMeal : ""}`, {params}) 
+      // const typesMeal = this._generateQueryTypesMeal()
+      const response = await apiClient.get<{ results: IRecipeApi[], totalResults: number }>(`/recipes/complexSearch?`, {params}) 
 
       runInAction(() => {
          try {

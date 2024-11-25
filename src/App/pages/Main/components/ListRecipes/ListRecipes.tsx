@@ -14,6 +14,7 @@ import Pagination from "../Pagination";
 import TimeIcon from "./TimeIcon";
 import { ParamsContext } from "../../../../../App/provider/QueryContext";
 import { useListRecipes } from "../../context";
+import { TypeMealStore } from "store/TypeMealStore";
 
 
 const ListRecipes: React.FC= () => {
@@ -32,6 +33,7 @@ const ListRecipes: React.FC= () => {
         fillIngredients: true,
         number: 9,
         offset: objContext?.queryParams.offset,
+        type: searchParams.get("type") || ""
       }
       const query = searchParams.get("query");
         if (query !== null) {

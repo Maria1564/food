@@ -3,5 +3,6 @@ export type ParamsType = {
       fillIngredients: boolean,
       number: number,
       offset: number,
-      query?: string
+      query?: string,
+      type?: string
 }
